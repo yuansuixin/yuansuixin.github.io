@@ -19,6 +19,7 @@ html {
     display: block;
 }
 body {
+	opacity: 0.8;
     display: block;
     margin: 0;
     padding: 0;
