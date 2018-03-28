@@ -43,7 +43,7 @@
     
     <title>
         
-            归档: 2018/3 | 
+            java中String类解析 | 
         
         Kerry
     </title>
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Kerry">
-    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/archives/2018/03/">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2016/04/28/java-string/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kerry">
@@ -230,13 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://yuansuixin.github.io/archives/2018/03/">
+    <meta property="og:url" content="https://yuansuixin.github.io/2016/04/28/java-string/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018/3 | Kerry">
+    <meta property="og:title" content="java中String类解析 | Kerry">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
+    
+        <meta property="article:published_time" content="Thu Apr 28 2016 09:51:50 GMT+0800">
+        <meta property="article:modified_time" content="Wed Mar 28 2018 09:59:50 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -244,13 +247,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://yuansuixin.github.io/archives/2018/03/index.html" />
+        <link rel="canonical" href="https://yuansuixin.github.io/2016/04/28/java-string/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2016/04/28/java-string/index.html",
+    "headline": "java中String类解析",
+    "datePublished": "Thu Apr 28 2016 09:51:50 GMT+0800",
+    "dateModified": "Wed Mar 28 2018 09:59:50 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
 
 
     
@@ -284,153 +317,233 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#and-the-compilation-unit"><span class="post-toc-number">1.</span> <span class="post-toc-text">and the compilation unit:</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#produces-the-output"><span class="post-toc-number">2.</span> <span class="post-toc-text">produces the output:</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#This-example-illustrates-six-points"><span class="post-toc-number">3.</span> <span class="post-toc-text">This example illustrates six points:</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/27/github添加表情/">github可以添加表情啦~</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/27/github添加表情/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="kerry's avatar">
-            </div>
-            <div>
-                <strong>kerry</strong>
-                <span>3月 27, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/03/22/hello/">hello</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-welcome to my-blog.
-nice to meet you.
-
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/03/22/hello/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="kerry's avatar">
-            </div>
-            <div>
-                <strong>kerry</strong>
-                <span>3月 22, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                java中String类解析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>4月 28, 2016</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=java中String类解析&url=https://yuansuixin.github.io/2016/04/28/java-string/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=java中String类解析&url=https://yuansuixin.github.io/2016/04/28/java-string/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2016/04/28/java-string/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2016/04/28/java-string/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>1.相等性的比较（==）<br>(1)对于原生数据类型来说，比较的是左右两边的值是否相等<br>（2）对于引用类型来说，比较左右两边的引用是否指向同一个对象，或者说左右两边的引用地址是否相同。</p>
+<p>2.Object 类的tostring方法返回的是一个哈希code值，而string类重写了tostring方法，默认调用tostring方法。<br>    API （Application Programming Interface），应用编程接口。<br>    当打印引用时，实际上会打印出引用所指对象的toString()方法的返回值，因为每个类都直接或间接地继承自Object，而Object类中定义了toString()，因此每个类都有toString()这个方法。</p>
+<p>3.equals方法<br>对于object类的equals方法来说，是用来判断两个对象是不是同一个对象。<br>对于继承了object类的其他类来说，如果重写了equals方法，才是判断内容是否一致，，如果没有重写equals方法，是判断地址是否一致。<br>    对于String类的equals()方法来说，它是判断当前字符串与传进来的字符串的内容是否一致。</p>
+<p>4.字符串是一个常量，创建之后值是不能被改变的。</p>
+<p>5.String是常量，其对象一旦创建完毕就无法改变。当使用+拼接字符串时，会生成新的String对象，而不是向原有的String对象追加内容。</p>
+<p>6、    String Pool（字符串池）</p>
+<p>7、    String s = “aaa”;（采用字面值方式赋值）<br>1)    查找String Pool中是否存在“aaa”这个对象，如果不存在，则在String Pool中创建一个“aaa”对象，然后将String Pool中的这个“aaa”对象的地址返回来，赋给引用变量s，这样s会指向String Pool中的这个“aaa”字符串对象<br>2)    如果存在，则不创建任何对象，直接将String Pool中的这个“aaa”对象地址返回来，赋给s引用。</p>
+<p>8、    String s = new String(“aaa”);<br>1)    首先在String Pool中查找有没有“aaa”这个字符串对象，如果有，则不在String Pool中再去创建“aaa”这个对象了，直接在堆中（heap）中创建一个“aaa”字符串对象，然后将堆中的这个“aaa”对象的地址返回来，赋给s引用，导致s指向了堆中创建的这个“aaa”字符串对象。<br>2)    如果没有，则首先在String Pool中创建一个“aaa“对象，然后再在堆中（heap）创建一个”aaa“对象，然后将堆中的这个”aaa“对象的地址返回来，赋给s引用，导致s指向了堆中所创建的这个”aaa“对象。</p>
+<p>9.new出来的对象都是在堆里面</p>
+<p>10.intern（）方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Object object = <span class="keyword">new</span> Object();</span><br><span class="line">		Object object2 = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//object类中的equals方法是使用==判断的</span></span><br><span class="line">		System.out.println(object == object2);<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line">		String str = <span class="keyword">new</span> String(<span class="string">"aaa"</span>);</span><br><span class="line">		String str2 = <span class="keyword">new</span> String(<span class="string">"aaa"</span>);</span><br><span class="line"></span><br><span class="line">		System.out.println(str == str2);<span class="comment">//false两个对象</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//StringPool字符串池在栈中，当字符串被赋予字面值的时候，首先检查字符串池里面有没有该对象"bbb"</span></span><br><span class="line">		<span class="comment">//如果没有，就将该字符串放入字符串池里面，字符串变量便指向这个对象</span></span><br><span class="line">		<span class="comment">//如果有，就不会在字符串池里面创建新的对象，而是在已有的字符串池里面的对象直接返回来赋给字符串变量str4</span></span><br><span class="line">		<span class="comment">//所以str4并没有创建对象</span></span><br><span class="line">		<span class="comment">//new出来的对象都是在堆里面</span></span><br><span class="line">		String str3 = <span class="string">"bbb"</span>;<span class="comment">//创建一个对象</span></span><br><span class="line">		String str4 = <span class="string">"bbb"</span>;<span class="comment">//并没有创建对象</span></span><br><span class="line"></span><br><span class="line">		System.out.println(str3 == str4);<span class="comment">//true	指向同一个对象</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line"></span><br><span class="line">		String str5 = <span class="keyword">new</span> String(<span class="string">"ccc"</span>);</span><br><span class="line">		String str6 = <span class="string">"ccc"</span>;</span><br><span class="line"></span><br><span class="line">		System.out.println(str5 == str6);<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//字符串的拼接并不是将字符串拼接到后面。字符串是常量，创建后就不能改变了，</span></span><br><span class="line">		<span class="comment">//加法操作实际上是生成了一个新的对象，而不是往原有的对象追加内容。</span></span><br><span class="line">		String s = <span class="string">"hello"</span>;<span class="comment">//</span></span><br><span class="line">		String s1 = <span class="string">"hel"</span>;</span><br><span class="line">		String s2 = <span class="string">"lo"</span>;</span><br><span class="line"></span><br><span class="line">		System.out.println(s == s1 + s2);<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line">		System.out.println(s == <span class="string">"hel"</span> + <span class="string">"lo"</span>);<span class="comment">//true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> testPackage;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">                String hello = <span class="string">"Hello"</span>, lo = <span class="string">"lo"</span>;</span><br><span class="line">                System.out.print((hello == <span class="string">"Hello"</span>) + <span class="string">" "</span>);</span><br><span class="line">                System.out.print((Other.hello == hello) + <span class="string">" "</span>);</span><br><span class="line">                System.out.print((other.Other.hello == hello) + <span class="string">" "</span>);</span><br><span class="line">                System.out.print((hello == (<span class="string">"Hel"</span>+<span class="string">"lo"</span>)) + <span class="string">" "</span>);</span><br><span class="line">                System.out.print((hello == (<span class="string">"Hel"</span>+lo)) + <span class="string">" "</span>);</span><br><span class="line">                System.out.println(hello == (<span class="string">"Hel"</span>+lo).intern());</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Other</span> </span>&#123; <span class="keyword">static</span> String hello = <span class="string">"Hello"</span>; &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="and-the-compilation-unit"><a href="#and-the-compilation-unit" class="headerlink" title="and the compilation unit:"></a>and the compilation unit:</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> other;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Other</span> </span>&#123; <span class="keyword">static</span> String hello = <span class="string">"Hello"</span>; &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="produces-the-output"><a href="#produces-the-output" class="headerlink" title="produces the output:"></a>produces the output:</h6><p>true true true true false true</p>
+<h6 id="This-example-illustrates-six-points"><a href="#This-example-illustrates-six-points" class="headerlink" title="This example illustrates six points:"></a>This example illustrates six points:</h6><p>1.Literal strings within the same class (§8) in the same package (§7) represent references to the same String object (§4.3.1).<br>2.Literal strings within different classes in the same package represent references to the same String object.<br>3.Literal strings within different classes in different packages likewise represent references to the same String object.<br>4.Strings computed by constant expressions (§15.28) are computed at compile time and then treated as if they were literals.<br>5.Strings computed by concatenation at run time are newly created and therefore distinct. </p>
+<p><a href="https://blog.csdn.net/prairie97" title="csdn博客" target="_blank" rel="noopener">我的csdn博客</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/03/22/hello/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/03/28/TreeSet-collections/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
