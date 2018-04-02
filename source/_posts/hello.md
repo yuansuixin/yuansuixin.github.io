@@ -1,9 +1,16 @@
 ---
-title: hello
-date: 2018-03-22 19:55:53
+title: hello~ 
+date: 2018-01-02 21:51:10
 tags:
 ---
 
-- welcome to my-blog.
-- nice to meet you.
+> 因为很多原因，一直没能进行博客的更新，今天终于又和大家见面了。
+
+
+- nice to meet you !
+- 欢迎来到我的博客，希望和大家一同进步，一同分享知识。
+
+
+
+
 
