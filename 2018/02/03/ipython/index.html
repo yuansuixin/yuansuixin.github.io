@@ -43,7 +43,7 @@
     
     <title>
         
-            Java中的内部类详细解析 | 
+            jupyter（IPython）相关知识点 | 
         
         Kerry
     </title>
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Kerry">
-    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/03/02/inner-class/">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2018/02/03/ipython/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kerry">
@@ -230,16 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://yuansuixin.github.io/2017/03/02/inner-class/">
+    <meta property="og:url" content="https://yuansuixin.github.io/2018/02/03/ipython/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Java中的内部类详细解析 | Kerry">
+    <meta property="og:title" content="jupyter（IPython）相关知识点 | Kerry">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
     
-        <meta property="article:published_time" content="Thu Mar 02 2017 22:14:09 GMT+0800">
-        <meta property="article:modified_time" content="Mon Apr 02 2018 22:14:49 GMT+0800">
+        <meta property="article:published_time" content="Sat Feb 03 2018 09:18:44 GMT+0800">
+        <meta property="article:modified_time" content="Tue Apr 03 2018 09:22:12 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -247,7 +247,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://yuansuixin.github.io/2017/03/02/inner-class/index.html" />
+        <link rel="canonical" href="https://yuansuixin.github.io/2018/02/03/ipython/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -259,10 +259,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "https://yuansuixin.github.io/2017/03/02/inner-class/index.html",
-    "headline": "Java中的内部类详细解析",
-    "datePublished": "Thu Mar 02 2017 22:14:09 GMT+0800",
-    "dateModified": "Mon Apr 02 2018 22:14:49 GMT+0800",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2018/02/03/ipython/index.html",
+    "headline": "jupyter（IPython）相关知识点",
+    "datePublished": "Sat Feb 03 2018 09:18:44 GMT+0800",
+    "dateModified": "Tue Apr 03 2018 09:22:12 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "kerry",
@@ -346,7 +346,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#静态内部类"><span class="post-toc-number">1.</span> <span class="post-toc-text">静态内部类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.0.0.0.1.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#局部内部类"><span class="post-toc-number">2.</span> <span class="post-toc-text">局部内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#成员内部类"><span class="post-toc-number">3.</span> <span class="post-toc-text">成员内部类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#匿名内部类"><span class="post-toc-number">4.</span> <span class="post-toc-text">匿名内部类</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、启动程序"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、启动程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、IPython的帮助文档"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、IPython的帮助文档</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-使用help（）"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">1.使用help（）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-使用？"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">2.使用？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-tab自动补全"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">3.tab自动补全</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、IPython魔法命令"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、IPython魔法命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-运行外部的Python文件"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">1. 运行外部的Python文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-运行计时"><span class="post-toc-number">3.0.2.</span> <span class="post-toc-text">2.运行计时</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-查看当前会话中的所有变量和函数"><span class="post-toc-number">3.0.3.</span> <span class="post-toc-text">3. 查看当前会话中的所有变量和函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-执行Linux指令"><span class="post-toc-number">3.0.4.</span> <span class="post-toc-text">4.执行Linux指令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-更多的魔法命令"><span class="post-toc-number">3.0.5.</span> <span class="post-toc-text">5. 更多的魔法命令</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、IPython输入输出历史"><span class="post-toc-number">4.</span> <span class="post-toc-text">四、IPython输入输出历史</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-使用in、out调用输入输出历史"><span class="post-toc-number">4.0.1.</span> <span class="post-toc-text">1. 使用in、out调用输入输出历史</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-使用下划线表示输出"><span class="post-toc-number">4.0.2.</span> <span class="post-toc-text">2. 使用下划线表示输出</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、jupyter-notebook的快捷键"><span class="post-toc-number">5.</span> <span class="post-toc-text">五、jupyter-notebook的快捷键</span></a></li></ol>
     </ul>
     
 
@@ -378,7 +378,7 @@
         
     
             <p class="article-headline-p">
-                Java中的内部类详细解析
+                jupyter（IPython）相关知识点
             </p>
         </div>
 
@@ -397,7 +397,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>kerry</strong>
-        <span>3月 02, 2017</span>
+        <span>2月 03, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -429,7 +429,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Java中的内部类详细解析&url=https://yuansuixin.github.io/2017/03/02/inner-class/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=jupyter（IPython）相关知识点&url=https://yuansuixin.github.io/2018/02/03/ipython/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -438,7 +438,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Java中的内部类详细解析&url=https://yuansuixin.github.io/2017/03/02/inner-class/index.html&via=kerry" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=jupyter（IPython）相关知识点&url=https://yuansuixin.github.io/2018/02/03/ipython/index.html&via=kerry" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -447,7 +447,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/03/02/inner-class/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2018/02/03/ipython/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -456,7 +456,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/03/02/inner-class/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2018/02/03/ipython/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -481,64 +481,85 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>来说一说内部类，内部类一共分为四种，分别是</p>
-<ol>
-<li>静态内部类</li>
-<li>局部内部类</li>
-<li>成员内部类</li>
-<li>匿名内部类</li>
-</ol>
-<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><p>类的成员</p>
-<ol>
-<li>成员变量</li>
-<li>成员方法</li>
-<li>构造方法</li>
-<li>代码块</li>
-<li>静态代码块</li>
-<li>内部类</li>
-</ol>
-<p>按照内部类声明方式</p>
-<ol>
-<li>静态内部类<ul>
-<li>static</li>
-<li>属于类：类比于静态变量 静态方法，没有外部类的引用（不需要对象）（直接使用外部类的this也就是意味着不能直接访问外部类的非静态属性</li>
-</ul>
-</li>
-</ol>
-<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><ol>
-<li><strong>静态内部类可以直接访问外部类的静态成员变量，静态内部类不可以直接 访问外部类的非静态成员变量</strong></li>
-<li>调用方式：</li>
-</ol>
+        <h2 id="一、启动程序"><a href="#一、启动程序" class="headerlink" title="一、启动程序"></a>一、启动程序</h2><p>执行以下命令：</p>
+<blockquote>
+<p>jupyter notebook</p>
+</blockquote>
+<p>[NotebookApp] Serving notebooks from local directory: /home/nanfengpo</p>
+<p>[NotebookApp] 0 active kernels </p>
+<p>[NotebookApp] The IPython Notebook is running at: <a href="http://localhost:8888/" target="_blank" rel="noopener">http://localhost:8888/</a></p>
+<p>[NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</p>
+<p>注意以下几点：</p>
 <ul>
-<li><p>导包的时候倒到外部类名为止<br>外部类类名.内部类类名 内部类对象名=new 外部类类名.内部类类名（）；</p>
-</li>
-<li><p>导包的时候倒到内部类的类名为止</p>
-<p>内部类类名 内部类的对象名 =new 内部类类名 （）；</p>
+<li>打开地址为当前bash的目录，默认的根目录</li>
+<li>浏览器地址为<a href="http://localhost:8888/" target="_blank" rel="noopener">http://localhost:8888/</a></li>
+<li>通过control -C终止jupyter程序</li>
+</ul>
+<p>几个基本操作：</p>
 <ul>
-<li>内部类的对象名.内部类方法名（）；</li>
+<li>双击D：删除当前cell</li>
+<li>单击M：转为markdown文档</li>
+<li>markdown文档下运行变为预览模式</li>
 </ul>
-</li>
+<h2 id="二、IPython的帮助文档"><a href="#二、IPython的帮助文档" class="headerlink" title="二、IPython的帮助文档"></a>二、IPython的帮助文档</h2><h4 id="1-使用help（）"><a href="#1-使用help（）" class="headerlink" title="1.使用help（）"></a>1.使用help（）</h4><p>通过以下命令来获得帮助文档：</p>
+<blockquote>
+<p>help(len)</p>
+</blockquote>
+<p>Help on built-in function len in module builtins:</p>
+<p>len(obj, /)<br>    Return the number of items in a container.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help(len)</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-使用？"><a href="#2-使用？" class="headerlink" title="2.使用？"></a>2.使用？</h4><blockquote>
+<p>len？</p>
+</blockquote>
+<p>还可以应用到自定义的变量和自定义的函数上来返回帮助文档</p>
+<p>此外，使用两个??可以把函数的源代码显示出来</p>
+<h4 id="3-tab自动补全"><a href="#3-tab自动补全" class="headerlink" title="3.tab自动补全"></a>3.tab自动补全</h4><h2 id="三、IPython魔法命令"><a href="#三、IPython魔法命令" class="headerlink" title="三、IPython魔法命令"></a>三、IPython魔法命令</h2><h4 id="1-运行外部的Python文件"><a href="#1-运行外部的Python文件" class="headerlink" title="1. 运行外部的Python文件"></a>1. 运行外部的Python文件</h4><p>使用下面命令运行外部python文件（默认是当前目录，最好加上绝对路径）</p>
+<blockquote>
+<p>%run *.py</p>
+</blockquote>
+<p>例如在当前目录下有一个myscript.py文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def square(x):</span><br><span class="line">    &quot;&quot;&quot;square a number&quot;&quot;&quot;</span><br><span class="line">    return x ** 2</span><br><span class="line"></span><br><span class="line">for N in range(1, 4):</span><br><span class="line">    print(N, &quot;squared is&quot;, square(N))</span><br></pre></td></tr></table></figure></p>
+<p>我们可以通过下面命令执行它：</p>
+<blockquote>
+<p>%run myscript.py</p>
+</blockquote>
+<p>尤其要注意的是，当我们使用魔法命令执行了一个外部文件时，该文件的函数就能在当前会话中使用</p>
+<blockquote>
+<p>square(5)</p>
+</blockquote>
+<h4 id="2-运行计时"><a href="#2-运行计时" class="headerlink" title="2.运行计时"></a>2.运行计时</h4><p>用下面命令计算statement的运行时间：</p>
+<blockquote>
+<p>%time statement</p>
+</blockquote>
+<p>用下面命令计算statement的平均运行时间：   </p>
+<blockquote>
+<p>%timeit statement</p>
+</blockquote>
+<p>timeit会多次运行statement，最后得到一个更为精准的预期运行时间</p>
+<p>可以使用两个百分号来测试多行代码的平均运行时间：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%%timeit</span><br><span class="line">statement1</span><br><span class="line">statement2</span><br><span class="line">statement3</span><br></pre></td></tr></table></figure></p>
+<p>记住：</p>
+<ul>
+<li>%time一般用于耗时长的代码段</li>
+<li>%timeit一般用于耗时短的代码段</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class StaticInnerClass &#123;</span><br><span class="line">	 static  int a=12;</span><br><span class="line">	 //静态内部类</span><br><span class="line">     public static class Moo&#123;</span><br><span class="line">    	 int b=13;</span><br><span class="line">    	 public void add()&#123;</span><br><span class="line">    		 int c=14;</span><br><span class="line">    		 System.out.println(a);</span><br><span class="line">    	 &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     public static void main(String[] args) &#123;</span><br><span class="line">		Moo m=new Moo();</span><br><span class="line">		m.add();</span><br><span class="line">		</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import com.qf.oop.innerclass.StaticInnerClass;</span><br><span class="line">import com.qf.oop.innerclass.StaticInnerClass.Moo;</span><br><span class="line">public class Test &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		/*StaticInnerClass.Moo m=new StaticInnerClass.Moo();</span><br><span class="line">		m.add();*/</span><br><span class="line">		Moo m=new Moo();</span><br><span class="line">		m.add();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h2><p>方法中<br>外部方法中的内部类，访问外部类局部变量</p>
-<p>注意：</p>
-<ol>
-<li>局部内部类随方法的调用而被加载</li>
-<li>也可以访问外部类的私有属性 持有外部类应用可以使用this</li>
-<li>局部内部类的对象只能在该类中创建</li>
-<li>局部内部类当中，如果访问外部类的局部变量（方法中的变量）一定是常量（使用final修饰）</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class LocInnerClass &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">	  final int a=12;</span><br><span class="line">	  class Moo&#123;</span><br><span class="line">		  int b=13;</span><br><span class="line">		  public void add()&#123;</span><br><span class="line">			  int c=14;</span><br><span class="line">			 // a++;</span><br><span class="line">			  System.out.println(a);</span><br><span class="line">		  &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	  Moo m=new Moo();</span><br><span class="line">	  m.add();</span><br><span class="line">	  </span><br><span class="line">	  </span><br><span class="line">	  LocInnerClass l=new LocInnerClass();</span><br><span class="line">	  l.test();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   public void test()&#123;</span><br><span class="line">	   final int a=12;</span><br><span class="line">		  class Moo&#123;</span><br><span class="line">			  int b=13;</span><br><span class="line">			  public void add()&#123;</span><br><span class="line">				  int c=14;</span><br><span class="line">				 // a++;</span><br><span class="line">				  System.out.println(a);</span><br><span class="line">				  System.out.println(this);</span><br><span class="line">			  &#125;</span><br><span class="line">		  &#125;</span><br><span class="line">		  Moo m=new Moo();</span><br><span class="line">		  m.add();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 2.成员内部类 可以使用4种访问权限符修饰</span><br><span class="line"> *   调用方式</span><br><span class="line"> *     第一种方式：</span><br><span class="line"> *       外部类类名 外部类对象名=new 外部类类名（）；</span><br><span class="line"> *       外部类类名.内部类类名 内部类对象名= 外部类对象名.new 内部类类名();</span><br><span class="line"> *       内部类对象名.方法名（）；</span><br><span class="line"> *      第二种方式：</span><br><span class="line"> *        外部类类名.内部类类名 内部类对象名=new 外部类类名（）.new 内部类类名（）；</span><br><span class="line"> *        内部类对象名.方法名（）；</span><br><span class="line"> * </span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class InnerClass &#123;</span><br><span class="line">	int a=12;</span><br><span class="line">   //成员内部类</span><br><span class="line">   public class Moo&#123;</span><br><span class="line">	   int b=13;</span><br><span class="line">	   public void add()&#123;</span><br><span class="line">		   int c=14;</span><br><span class="line">		   System.out.println(a);</span><br><span class="line">	   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">	   /*InnerClass in=new InnerClass();</span><br><span class="line">	   System.out.println(in.a);*/</span><br><span class="line">	   //第一种方式</span><br><span class="line">	   InnerClass in=new InnerClass();</span><br><span class="line">	   InnerClass.Moo m=in.new Moo();</span><br><span class="line">	   m.add();</span><br><span class="line">	   InnerClass.Moo m1=in.new Moo();</span><br><span class="line">	   m1.add();</span><br><span class="line">	   </span><br><span class="line">	   //第二种方式</span><br><span class="line">	   InnerClass.Moo m3=new InnerClass().new Moo();</span><br><span class="line">	   m3.add();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>成员内部类变量名称一致的情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class InnerClass2 &#123;</span><br><span class="line">	int a=12;</span><br><span class="line">   //成员内部类</span><br><span class="line">   public class Moo&#123;</span><br><span class="line">	   int a=13;</span><br><span class="line">	   public void add()&#123;</span><br><span class="line">		   int a=14;</span><br><span class="line">		   System.out.println(a);</span><br><span class="line">		   System.out.println(&quot;内部类成员变量a=&quot;+new Moo().a);</span><br><span class="line">		   System.out.println(&quot;内部类成员变量a=&quot;+this.a);</span><br><span class="line">		   System.out.println(&quot;外部类的成员变量a=&quot;+new InnerClass2().a);</span><br><span class="line">		   System.out.println(&quot;外部类的成员变量a=&quot;+InnerClass2.this.a);</span><br><span class="line">	   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">	   </span><br><span class="line">	   //第二种方式</span><br><span class="line">	   InnerClass2.Moo m3=new InnerClass2().new Moo();</span><br><span class="line">	   m3.add();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>语法：</p>
-<p>类名 对象名 = new 类名（）{<br>实现抽象方法<br>}</p>
-<p>注意：</p>
-<p>匿名内部类没有构造方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 匿名内部类：没有名字</span><br><span class="line"> * 语法：</span><br><span class="line"> *   类名 对象名=new 类名()&#123;</span><br><span class="line"> *      实现抽象方法</span><br><span class="line"> *   &#125;;</span><br><span class="line"> * 注意：</span><br><span class="line"> *   匿名内部类没有构造方法</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">public class NoNameInnerClass &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">	    //AA a=new AA();</span><br><span class="line">	    AA a=new BB();</span><br><span class="line">	    a.add();</span><br><span class="line">	    AA a1=new BB();</span><br><span class="line">	    a1.add();</span><br><span class="line">	    </span><br><span class="line">	    //Animal an=new Animal();</span><br><span class="line">	    Cat c=new Cat()&#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void catchMouse() &#123;</span><br><span class="line">				System.out.println(&quot;猫咪正在和老鼠玩耍&quot;);</span><br><span class="line">				</span><br><span class="line">			&#125;	</span><br><span class="line">	    &#125;;</span><br><span class="line">	    c.catchMouse();</span><br><span class="line">	    </span><br><span class="line">	    Cat c1=new Cat()&#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public void catchMouse() &#123;</span><br><span class="line">				System.out.println(&quot;小猫咪抓老鼠&quot;);</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">	    	</span><br><span class="line">	    &#125;;</span><br><span class="line">	    c1.catchMouse();</span><br><span class="line">	    </span><br><span class="line">	    </span><br><span class="line">	    Cat c3=new MImi();</span><br><span class="line">	    c3.catchMouse();</span><br><span class="line">	    </span><br><span class="line">	    </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">abstract class AA&#123;</span><br><span class="line">	public void run()&#123;</span><br><span class="line">		System.out.println(&quot;奔跑&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public abstract void add();</span><br><span class="line">&#125;</span><br><span class="line">class BB extends AA&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void add() &#123;</span><br><span class="line">		System.out.println(12);	</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line">interface Animal&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">interface Cat extends Animal&#123;</span><br><span class="line">	void catchMouse();</span><br><span class="line">&#125;</span><br><span class="line">class MImi implements Cat&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void catchMouse() &#123;</span><br><span class="line">		System.out.println(&quot;小猫咪抓老鼠&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://blog.csdn.net/prairie97" target="_blank" rel="noopener">我的csdn博客</a></p>
+<h4 id="3-查看当前会话中的所有变量和函数"><a href="#3-查看当前会话中的所有变量和函数" class="headerlink" title="3. 查看当前会话中的所有变量和函数"></a>3. 查看当前会话中的所有变量和函数</h4><p>快速查看当前会话的所有变量与函数名称：</p>
+<blockquote>
+<p>%who</p>
+</blockquote>
+<p>查看当前会话的所有变量与函数名称的详细信息：</p>
+<blockquote>
+<p>%whos</p>
+</blockquote>
+<p>返回一个字符串列表，里面元素是当前会话的所有变量与函数名称：</p>
+<blockquote>
+<p>%who_ls</p>
+</blockquote>
+<h4 id="4-执行Linux指令"><a href="#4-执行Linux指令" class="headerlink" title="4.执行Linux指令"></a>4.执行Linux指令</h4><p>在Linux指令之前加上  <font size="5" color="green">!</font>，即可在ipython当中执行Linux指令。<br>注意，会将标准输出以字符串形式返回</p>
+<h4 id="5-更多的魔法命令"><a href="#5-更多的魔法命令" class="headerlink" title="5. 更多的魔法命令"></a>5. 更多的魔法命令</h4><p>列出所有魔法命令</p>
+<blockquote>
+<p>lsmagic</p>
+</blockquote>
+<h2 id="四、IPython输入输出历史"><a href="#四、IPython输入输出历史" class="headerlink" title="四、IPython输入输出历史"></a>四、IPython输入输出历史</h2><h4 id="1-使用in、out调用输入输出历史"><a href="#1-使用in、out调用输入输出历史" class="headerlink" title="1. 使用in、out调用输入输出历史"></a>1. 使用in、out调用输入输出历史</h4><p>In返回一个字符串列表，里面是所有输入命令的字符串<br>Out返回一个含有输出的命令的序号及其输出组成的字典<br>两者皆可以通过索引获取元素</p>
+<h4 id="2-使用下划线表示输出"><a href="#2-使用下划线表示输出" class="headerlink" title="2. 使用下划线表示输出"></a>2. 使用下划线表示输出</h4><p>“_”表示上一个输出<br>“_2”表示Out[2]</p>
+<h2 id="五、jupyter-notebook的快捷键"><a href="#五、jupyter-notebook的快捷键" class="headerlink" title="五、jupyter-notebook的快捷键"></a>五、jupyter-notebook的快捷键</h2><p><a href="https://yuansuixin.github.io/archives/2018/04/" title="快捷键">jupyter-notebook快捷键</a></p>
 
         
     
@@ -559,7 +580,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/05/24/reflection1/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/03/22/github/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -573,7 +594,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2017/01/28/abstract/" id="post_nav-older" class="next-content">
+        <a href="/2018/01/02/hello/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
