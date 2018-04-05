@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            设计模式---代理模式（Proxy）（动态代理） | 
+        
+        Kerry
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?yLCpShWWLLMEALkrueHy8A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kerry">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/11/05/proxy2/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kerry">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://yuansuixin.github.io/2017/11/05/proxy2/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="设计模式---代理模式（Proxy）（动态代理） | Kerry">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Sun Nov 05 2017 15:36:49 GMT+0800">
+        <meta property="article:modified_time" content="Thu Apr 05 2018 15:38:31 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://yuansuixin.github.io/2017/11/05/proxy2/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2017/11/05/proxy2/index.html",
+    "headline": "设计模式---代理模式（Proxy）（动态代理）",
+    "datePublished": "Sun Nov 05 2017 15:36:49 GMT+0800",
+    "dateModified": "Thu Apr 05 2018 15:38:31 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态代理"><span class="post-toc-number">1.</span> <span class="post-toc-text">动态代理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#抽象接口"><span class="post-toc-number">1.0.0.0.1.</span> <span class="post-toc-text">抽象接口</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#真实角色"><span class="post-toc-number">1.0.0.0.2.</span> <span class="post-toc-text">真实角色</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#代理角色"><span class="post-toc-number">1.0.0.0.3.</span> <span class="post-toc-text">代理角色</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#客户端"><span class="post-toc-number">1.0.0.0.4.</span> <span class="post-toc-text">客户端</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                设计模式---代理模式（Proxy）（动态代理）
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>11月 05, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=设计模式---代理模式（Proxy）（动态代理）&url=https://yuansuixin.github.io/2017/11/05/proxy2/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=设计模式---代理模式（Proxy）（动态代理）&url=https://yuansuixin.github.io/2017/11/05/proxy2/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/11/05/proxy2/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/11/05/proxy2/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p> Java动态代理类位于java.lang.reflect包下，一般主要 涉及到以下两个类： </p>
+<p> (1)<strong>Interface InvocationHandler接口</strong>：该接口中仅定义了 一个方法 </p>
+<ul>
+<li><p>public object invoke(Object obj,Method method, Object[] args) </p>
+</li>
+<li><p>在实际使用时，第一个参数obj一般是指代理类，代理实例的方法被调用 第二个参数method是被代理的方法，如上例中的request()，第三个参数args 为该方法的参数数组。 这个抽象方法在代理类中动态实现。</p>
+</li>
+</ul>
+<p>这个接口是由一个代理实例的调用处理器来实现的。</p>
+<p>每一个代理实例都会有一个与之关联的调用处理器。当我们调用一个代理实例的某一个方法的时候，这个方法调用就会被编码并且被派发到与之关联的他的调用处理器的invoke方法上，被调用。</p>
+<p>invoke方法会处理代理实例上的一个方法调用，并且将真正的调用结果返回回来。当一个调用处理器关联到这个处理器的某个代理实例，我们调用这个代理实例上的某个方法的时候，这个方法就会转移到与这个实例所关联的那个调用处理器的invoke方法，由它帮我们完成调用。</p>
+<p>(2)<strong>Proxy</strong>：该类即为动态代理类，作用类似于上例中的</p>
+<p>Proxy提供了一些静态方法用于创建动态代理类和实例，他也是由这些方法所创建的动态代理类的一个父类。</p>
+<p>ProxySubject，其中主要包含以下内容</p>
+<ul>
+<li><p>protected Proxy(InvocationHandler h)：构造函数， 用于给内部的h赋值。</p>
+</li>
+<li><p>static Class getProxyClass (ClassLoader loader, Class[] interfaces)：获得一个代理类，其中loader是 类装载器，interfaces是真实类所拥有的全部接口的数组 。</p>
+</li>
+<li><p>static Object newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h)： <strong>返回代理类的一个实例</strong>，返回后的代理类可以当作被代理 类使用(可使用被代理类的在Subject接口中声明过的方法 )</p>
+</li>
+<li><p>所谓Dynamic Proxy是这样一种class： 它是在<strong>运行时生成</strong>的class，<strong>在生成它时你 必须提供一组interface给它，然后该class 就宣称它实现了这些 interface</strong>。你当然可 以把该class的实例当作这些interface中的 任何一个来用(多态)。当然，这个Dynamic Proxy其实就是一个Proxy，它不会替你作 实质性的工作，在生成它的实例时你必须 提供一个handler，由它接管实际的工作</p>
+</li>
+<li><p>在使用动态代理类时，我们必须实现 InvocationHandler接口 </p>
+</li>
+</ul>
+<h6 id="抽象接口"><a href="#抽象接口" class="headerlink" title="抽象接口"></a>抽象接口</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Subject &#123;</span><br><span class="line">	public void request();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="真实角色"><a href="#真实角色" class="headerlink" title="真实角色"></a>真实角色</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class RealSubject implements Subject&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void request() &#123;</span><br><span class="line">		System.out.println(&quot;from real subject&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="代理角色"><a href="#代理角色" class="headerlink" title="代理角色"></a>代理角色</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 该代理类的内部属性是Object类型，实际使用的时候通过该类的构造方法传递进来一个对象</span><br><span class="line"> * 此外，该类还实现了invoke方法，该方法中的method.invoke其实就是调用被代理对象的将要</span><br><span class="line"> * 执行的方法，方法参数是sub，表示该方法从属于sub，通过动态代理类，我们可以在执行真实对象的方法前后</span><br><span class="line"> * 加入自己的一些额外方法。</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class DynamicSubject implements InvocationHandler&#123;</span><br><span class="line"></span><br><span class="line">	//真实对象的引用，因为是动态代理，他可以代理任意一个对象，所以就要定义为Object类型。如果是RealSubject就很受限制了。</span><br><span class="line">	private Object sub;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public  DynamicSubject(Object object) &#123;</span><br><span class="line">	   this.sub=object;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line"></span><br><span class="line">		System.out.println(&quot;before calling:&quot;+method);</span><br><span class="line">		</span><br><span class="line">		//使用的是反射，进行的调用</span><br><span class="line">		method.invoke(sub, args);</span><br><span class="line">		</span><br><span class="line">		System.out.println(args==null);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;after calling:&quot;+method);</span><br><span class="line">		</span><br><span class="line">		//这个例子没有返回值，直接返回空就可以</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line">public class Client &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		RealSubject realSubject = new RealSubject();</span><br><span class="line">		</span><br><span class="line">		//多态</span><br><span class="line">		//代理谁就传谁</span><br><span class="line">		InvocationHandler handler = new DynamicSubject(realSubject);</span><br><span class="line">		</span><br><span class="line">		Class&lt;?&gt; classType=handler.getClass();</span><br><span class="line">		</span><br><span class="line">	     //下面的代码一次性生成代理</span><br><span class="line">		//第一个参数为类装载器，通过Class类可以获得，我们现在要动态的生成类了，这个类是由哪个类装载器装载的呢</span><br><span class="line">		//代理类返回的是一个Object类型的，需要转换类型</span><br><span class="line">		//运行的时候生成一个class，然后生成class类的一个对象</span><br><span class="line">		Subject subject=(Subject)Proxy.newProxyInstance(classType.getClassLoader(),</span><br><span class="line">				realSubject.getClass().getInterfaces(), handler);</span><br><span class="line">		</span><br><span class="line">		subject.request();</span><br><span class="line">		</span><br><span class="line">		System.out.println(subject.getClass());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">before calling:public abstract void com.suixin.pattern.dynamicsubject.Subject.request()</span><br><span class="line">from real subject</span><br><span class="line">null</span><br><span class="line">after calling:public abstract void com.suixin.pattern.dynamicsubject.Subject.request()</span><br><span class="line">class com.sun.proxy.$Proxy0</span><br></pre></td></tr></table></figure>
+<p><strong>只要使用动态代理类，有一个动态代理类就会有一个InvocationHandler，他们总是相互关联的。</strong>代理类并不会真正的完成方法的调用，而都是由与之关联的InvocationHandler的invoke方法真正完成目标方法的调用。</p>
+<p>下面通过这个例子，我来给大家详细的介绍一下执行的流程和注意事项，详细步骤解读：</p>
+<ol>
+<li><p>首先进行实例化，实例化已经知道的我们需要用到的类，也就是说实例化RealSubject和DynamicSubject，这里用到了多态的知识点，这里我给大家补充一下， <strong>多态：所谓多态，就是父类型的引用可以指向子类型的对象，或者接口类型的引用可以指向实现该接口的类的实例。关于接口与实现接口的类之间的强制类型转换方式与父类和子类之间的强制类型转换方式完全一样。</strong></p>
+<pre><code> RealSubject realSubject = new RealSubject();
+
+//多态
+//因为这里是动态代理，代理的对象不能指定为一个，所以代理谁就传谁
+InvocationHandler handler = new DynamicSubject(realSubject);
+</code></pre></li>
+<li><p>获得调用处理器的Class对象，这里使用的是getClass（）方法。获得这个Class对象是为了生成代理的时候使用。</p>
+</li>
+</ol>
+<p>3.一次性生成代理实例，这里的生成实例，既不是真实对象的实例也不是代理对象DynamicSubject的实例，而是java在运行的时候生成的一个Class类，然后生成这个Class类的一个对象。</p>
+<pre><code>Subject subject=(Subject)Proxy.newProxyInstance(classType.getClassLoader(),realSubject.getClass().getInterfaces(), handler);
+</code></pre><p>第一个参数为类加载器，通过Class类可以获得，我们现在要动态的生成类了，这个类是由哪个类装载器装载的呢，因为我们要动态的生成一个代理角色的类，而代理角色类的方法都是由调用处理器来实现的，所以这个类加载器就是调用处理器也就是代理角色的类加载器，classType.getClassLoader()。这个类的实例宣称实现了真实角色实现的所有的接口，也就是realSubject.getClass().getInterfaces()这些接口，所以生成出来的那个对象我们可以将其转换成Subject类型，（不要装换为对应的具体的实现类类型，因为并不知道他对应了那些实现类），装换之后正常的调用方法就可以了。</p>
+<p><strong>生成动态代理类，而与之关联的调用处理器就是DynamicSubject</strong></p>
+<p>4.调用方法的时候，就会转而由InvocationHandler的invoke方法来执行，并且将参数也分别传递过去。就会执行invoke（）方法，执行完之后再回到Client继续执行下面的代码。这就实现了动态代理，over。</p>
+<hr>
+<p>通过这种方式，被代理的对象 (RealSubject)可以在运行时动态改变，需 要控制的接口(Subject接口)可以在运行时 改变，控制的方式(DynamicSubject类) 也可以动态改变，从而实现了非常灵活的 动态代理关系</p>
+<ul>
+<li>动态代理是指客户通过代理类来调用其它 对象的方法</li>
+<li><p>动态代理使用场合:</p>
+<p> 调试 </p>
+<p> 远程方法调用(RMI)</p>
+</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20171113172042542?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>实现动态代理的步骤：</p>
+<ol>
+<li>创建一个实现接口InvocationHandler的 类，它必须实现invoke方法</li>
+<li>创建被代理的类以及接口</li>
+<li>通过Proxy的静态方法 newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h) 创建一个代理 </li>
+<li>通过代理调用方法</li>
+</ol>
+<p>我想大家对于代理模式已经有了一个了解了，但是我们为了更好的掌握它，还是得再巩固一下，我们练习一下带有参数传递的动态代理模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Vector;</span><br><span class="line"></span><br><span class="line">public class VectorProxy implements InvocationHandler&#123;</span><br><span class="line">	private Object proxyObj;</span><br><span class="line">	</span><br><span class="line">	public VectorProxy(Object object) &#123;</span><br><span class="line">		this.proxyObj=object;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static Object factory(Object object) &#123;</span><br><span class="line">		Class&lt;?&gt; classType=object.getClass();</span><br><span class="line">		</span><br><span class="line">		return Proxy.newProxyInstance(classType.getClassLoader(), </span><br><span class="line">				classType.getInterfaces(), new VectorProxy(object));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;before calling:&quot;+method);</span><br><span class="line">		</span><br><span class="line">		if(null!=args) &#123;</span><br><span class="line">			for(Object object:args) &#123;</span><br><span class="line">				System.out.println(object);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Object object=method.invoke(proxyObj, args);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;after calling :&quot;+method);</span><br><span class="line">		return object;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//vList是运行时动态生成的类的实例</span><br><span class="line">		List vList=(List) factory(new Vector());</span><br><span class="line">		</span><br><span class="line">		//我们把这个动态生成的实例的名字打印出来</span><br><span class="line">		System.out.println(vList.getClass().getName());</span><br><span class="line">		</span><br><span class="line">		vList.add(&quot;new&quot;);</span><br><span class="line">		vList.add(&quot;York&quot;);</span><br><span class="line">		</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(vList);</span><br><span class="line">		</span><br><span class="line">		vList.remove(0);</span><br><span class="line">		System.out.println(vList);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">com.sun.proxy.$Proxy0</span><br><span class="line">before calling:public abstract boolean java.util.List.add(java.lang.Object)</span><br><span class="line">new</span><br><span class="line">after calling :public abstract boolean java.util.List.add(java.lang.Object)</span><br><span class="line">before calling:public abstract boolean java.util.List.add(java.lang.Object)</span><br><span class="line">York</span><br><span class="line">after calling :public abstract boolean java.util.List.add(java.lang.Object)</span><br><span class="line"></span><br><span class="line">before calling:public java.lang.String java.lang.Object.toString()</span><br><span class="line">after calling :public java.lang.String java.lang.Object.toString()</span><br><span class="line">[new, York]</span><br><span class="line">before calling:public abstract java.lang.Object java.util.List.remove(int)</span><br><span class="line">0</span><br><span class="line">after calling :public abstract java.lang.Object java.util.List.remove(int)</span><br><span class="line">before calling:public java.lang.String java.lang.Object.toString()</span><br><span class="line">after calling :public java.lang.String java.lang.Object.toString()</span><br><span class="line">[York]</span><br></pre></td></tr></table></figure>
+<p>我们一起来分析一下这个程序，其实原理都是一样的。我把所有的内容写到了一个类里面。</p>
+<ol>
+<li>首先从入口开始说起吧，定义了List，vList是运行时动态生成的类的实例。也就是factory方法的返回值。factory方法有一个参数object代表着传入的要代理的对象。factory返回的值是Object，但是newProxyInstance生成的类是实现了传入的参数所实现的所有的方法，new Vector（）实现了List的接口，那么动态代理也肯定实现了这个接口，可以通过强制类型转换为List类型。</li>
+<li>然后调用add方法，传入一个“new”进去，当你调用生成代理对象的任何一个方法，都会立刻转由invoke方法执行。将参数传给invoke方法，我们遍历参数的数组args就会打印出来。继续执行invoke方法，执行完之后，再回来执行add（“york”）;再重复上面的执行过程。</li>
+<li>我们打印出来vList看看是什么，其实和上面的过程是一样的，打印vList相当于调用了vList.toString();方法，过程和上面调用方法的步骤一致，只是没有传参数而已。<br>4.调用remove方法也是同样的道理，我就不再重复了。</li>
+</ol>
+<p>动态代理是能够用一个动态代理类，代理多个真实对象，那么我们举例来看一下，这里我就不详细的介绍了。</p>
+<p>公共的接口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Foo &#123;</span><br><span class="line">	void doAction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一个真实的角色：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class FoolImp1 implements Foo&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void doAction() &#123;</span><br><span class="line">		System.out.println(&quot;in FooImpl doAction&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第二个真实角色：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class FooImpl2 implements Foo &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void doAction() &#123;</span><br><span class="line">	System.out.println(&quot;in FooImp2 doAction&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">public class CommonInvocationHandler implements InvocationHandler&#123;</span><br><span class="line"></span><br><span class="line">	private Object object;</span><br><span class="line">	 public CommonInvocationHandler(Object object) &#123;</span><br><span class="line">	this.object=object;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	 public CommonInvocationHandler() &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line">	 public void setObject(Object object) &#123;</span><br><span class="line">		this.object = object;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//代理角色</span><br><span class="line">	@Override</span><br><span class="line">	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">		return method.invoke(object, args);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.logging.Handler;</span><br><span class="line"></span><br><span class="line">public class Client &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		CommonInvocationHandler cHandler=new CommonInvocationHandler();</span><br><span class="line">		</span><br><span class="line">		Foo foo=null;</span><br><span class="line">		</span><br><span class="line">		cHandler.setObject(new FoolImp1());</span><br><span class="line">		</span><br><span class="line">		foo=(Foo)Proxy.newProxyInstance(Foo.class.getClassLoader(), </span><br><span class="line">				new Class[] &#123;Foo.class&#125;, cHandler);</span><br><span class="line">		</span><br><span class="line">		foo.doAction();</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;==================================================&quot;);</span><br><span class="line">	</span><br><span class="line">		cHandler.setObject(new FooImpl2());</span><br><span class="line">		</span><br><span class="line">		foo=(Foo)Proxy.newProxyInstance(Foo.class.getClassLoader(),</span><br><span class="line">				new Class[] &#123;Foo.class&#125;, cHandler);</span><br><span class="line">		</span><br><span class="line">		foo.doAction();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">in FooImpl doAction</span><br><span class="line">==================================================</span><br><span class="line">in FooImp2 doAction</span><br></pre></td></tr></table></figure>
+<p>这个例子中FoolImp1、FoolImp2是两个真实的角色，用一个代理Proxy代理他们两个，通过在运行时期生成动态代理实例来代理，完成真实角色要实现的方法，其实，方法都是在invoke方法中得到真实调用的，代理实例不会真正的真实角色的方法，最终还是由真实角色里实现的。</p>
+<p><a href="https://blog.csdn.net/prairie97" target="_blank" rel="noopener">我的csdn博客</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/12/15/annotation/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/10/22/proxy/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kerry's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        cyss428@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/03/">三月 2015<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2015&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Kerry
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
