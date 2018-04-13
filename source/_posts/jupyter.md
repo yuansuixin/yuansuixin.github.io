@@ -1,12 +1,7 @@
----
-title: jupyter-notebook快捷方式
-date: 2018-04-02 20:23:09
-tags:
----
 
 
 ---
-title: jupyter 快捷键
+title: jupyter-notebook 快捷方式
 date: 2017-11-20 12:32:50
 categories:
 tags:
