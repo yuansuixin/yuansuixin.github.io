@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            机器学习算法剖析----KNN近邻算法 | 
+        
+        Kerry
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content=",机器学习算法">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?yLCpShWWLLMEALkrueHy8A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kerry">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2018/04/13/KNN/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kerry">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://yuansuixin.github.io/2018/04/13/KNN/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="机器学习算法剖析----KNN近邻算法 | Kerry">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="机器学习算法"> 
+
+    
+        <meta property="article:published_time" content="Fri Apr 13 2018 19:35:40 GMT+0800">
+        <meta property="article:modified_time" content="Fri Apr 13 2018 19:41:52 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://yuansuixin.github.io/2018/04/13/KNN/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2018/04/13/KNN/index.html",
+    "headline": "机器学习算法剖析----KNN近邻算法",
+    "datePublished": "Fri Apr 13 2018 19:35:40 GMT+0800",
+    "dateModified": "Fri Apr 13 2018 19:41:52 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",机器学习算法",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#K-近邻算法（KNN）"><span class="post-toc-number">1.</span> <span class="post-toc-text">K-近邻算法（KNN）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0、导引"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">0、导引</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何进行电影分类"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">如何进行电影分类</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、k-近邻算法原理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">1、k-近邻算法原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作原理"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#欧几里得距离-Euclidean-Distance"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">欧几里得距离(Euclidean Distance)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、在scikit-learn库中使用k-近邻算法"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">2、在scikit-learn库中使用k-近邻算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#0）一个最简单的例子"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">0）一个最简单的例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1）用于分类"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">1）用于分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2）用于回归"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">2）用于回归</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#练习"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">练习</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                机器学习算法剖析----KNN近邻算法
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>4月 13, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/机器学习算法/">机器学习算法</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=机器学习算法剖析----KNN近邻算法&url=https://yuansuixin.github.io/2018/04/13/KNN/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=机器学习算法剖析----KNN近邻算法&url=https://yuansuixin.github.io/2018/04/13/KNN/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2018/04/13/KNN/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2018/04/13/KNN/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="K-近邻算法（KNN）"><a href="#K-近邻算法（KNN）" class="headerlink" title="K-近邻算法（KNN）"></a>K-近邻算法（KNN）</h1><p>K nearest neighbour</p>
+<ul>
+<li>说明：本文采用的是jupyter-notebook环境，我直接贴的IPython代码，小伙伴们要到jypyter-notebook上运行哟！:smile:</li>
+<li>案例下载<a href="https://github.com/yuansuixin/k-Nearest-Neighbor" title="案例" target="_blank" rel="noopener">案例</a></li>
+</ul>
+<h2 id="0、导引"><a href="#0、导引" class="headerlink" title="0、导引"></a>0、导引</h2><h3 id="如何进行电影分类"><a href="#如何进行电影分类" class="headerlink" title="如何进行电影分类"></a>如何进行电影分类</h3><p>众所周知，电影可以按照题材分类，然而题材本身是如何定义的?由谁来判定某部电影属于哪<br>个题材?也就是说同一题材的电影具有哪些公共特征?这些都是在进行电影分类时必须要考虑的问<br>题。没有哪个电影人会说自己制作的电影和以前的某部电影类似，但我们确实知道每部电影在风格<br>上的确有可能会和同题材的电影相近。那么动作片具有哪些共有特征，使得动作片之间非常类似，<br>而与爱情片存在着明显的差别呢？动作片中也会存在接吻镜头，爱情片中也会存在打斗场景，我们<br>不能单纯依靠是否存在打斗或者亲吻来判断影片的类型。但是爱情片中的亲吻镜头更多，动作片中<br>的打斗场景也更频繁，基于此类场景在某部电影中出现的次数可以用来进行电影分类。</p>
+<p>本章介绍第一个机器学习算法：K-近邻算法，它非常有效而且易于掌握。</p>
+<h2 id="1、k-近邻算法原理"><a href="#1、k-近邻算法原理" class="headerlink" title="1、k-近邻算法原理"></a>1、k-近邻算法原理</h2><p>简单地说，K-近邻算法采用测量不同特征值之间的距离方法进行分类。</p>
+<ul>
+<li>优点：精度高、对异常值不敏感、无数据输入假定。</li>
+<li>缺点：时间复杂度高、空间复杂度高。</li>
+<li>适用数据范围：数值型和标称型。</li>
+</ul>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都存在标签，即我们知道样本集中每一数据<br>与所属分类的对应关系。输人没有标签的新数据后，将新数据的每个特征与样本集中数据对应的<br>特征进行比较，然后算法提取样本集中特征最相似数据（最近邻）的分类标签。一般来说，我们<br>只选择样本数据集中前K个最相似的数据，这就是K-近邻算法中K的出处,通常<em>K是不大于20的整数。<br>最后 ，选择K个最相似数据中出现次数最多的分类，作为新数据的分类</em>。</p>
+<p>回到前面电影分类的例子，使用K-近邻算法分类爱情片和动作片。有人曾经统计过很多电影的打斗镜头和接吻镜头，下图显示了6部电影的打斗和接吻次数。假如有一部未看过的电影，如何确定它是爱情片还是动作片呢？我们可以使用K-近邻算法来解决这个问题。</p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192352.PNG" alt="Untitled-1-2018413192352"></p>
+<p>首先我们需要知道这个未知电影存在多少个打斗镜头和接吻镜头，上图中问号位置是该未知电影出现的镜头数图形化展示，具体数字参见下表。<br><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-201841319243.PNG" alt="Untitled-1-201841319243"></p>
+<p>即使不知道未知电影属于哪种类型，我们也可以通过某种方法计算出来。首先计算未知电影与样本集中其他电影的距离，如图所示。</p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192410.PNG" alt="Untitled-1-2018413192410"></p>
+<p>现在我们得到了样本集中所有电影与未知电影的距离，按照距离递增排序，可以找到K个距<br>离最近的电影。假定k=3，则三个最靠近的电影依次是California Man、He’s Not Really into Dudes、Beautiful Woman。K-近邻算法按照距离最近的三部电影的类型，决定未知电影的类型，而这三部电影全是爱情片，因此我们判定未知电影是爱情片。</p>
+<h3 id="欧几里得距离-Euclidean-Distance"><a href="#欧几里得距离-Euclidean-Distance" class="headerlink" title="欧几里得距离(Euclidean Distance)"></a>欧几里得距离(Euclidean Distance)</h3><p>欧氏距离是最常见的距离度量，衡量的是多维空间中各个点之间的绝对距离。公式如下：</p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192416.png" alt="Untitled-1-2018413192416"></p>
+<h2 id="2、在scikit-learn库中使用k-近邻算法"><a href="#2、在scikit-learn库中使用k-近邻算法" class="headerlink" title="2、在scikit-learn库中使用k-近邻算法"></a>2、在scikit-learn库中使用k-近邻算法</h2><ul>
+<li><p>分类问题：from sklearn.neighbors import KNeighborsClassifier</p>
+</li>
+<li><p>回归问题：from sklearn.neighbors import KNeighborsRegressor</p>
+</li>
+</ul>
+<h3 id="0）一个最简单的例子"><a href="#0）一个最简单的例子" class="headerlink" title="0）一个最简单的例子"></a>0）一个最简单的例子</h3><p>身高、体重、鞋子尺码数据对应性别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理分类问题</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="comment"># 处理回归问题</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsRegressor</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建KNN分类器对象</span></span><br><span class="line"><span class="comment"># n_neighbors应设置为一个奇数，表示距离预测样本最近的n个样本点</span></span><br><span class="line">knnclf = KNeighborsClassifier(n_neighbors=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># X_train必须是一个列向量（二维数组）</span></span><br><span class="line">X_train = np.array([[<span class="number">19</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">18</span>],[<span class="number">25</span>,<span class="number">1</span>],[<span class="number">24</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">17</span>]])</span><br><span class="line">y_train = np.array([<span class="string">'动作'</span>,<span class="string">'爱情'</span>,<span class="string">'动作'</span>,<span class="string">'动作'</span>,<span class="string">'爱情'</span>])</span><br><span class="line">display(X_train,y_train)</span><br></pre></td></tr></table></figure>
+<pre><code>array([[19,  1],
+       [ 2, 18],
+       [25,  1],
+       [24,  3],
+       [ 3, 17]])
+
+
+
+array([&apos;动作&apos;, &apos;爱情&apos;, &apos;动作&apos;, &apos;动作&apos;, &apos;爱情&apos;], dtype=&apos;&lt;U2&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 训练分类器模型</span></span><br><span class="line">knnclf.fit(X_train,y_train)</span><br></pre></td></tr></table></figure>
+<pre><code>KNeighborsClassifier(algorithm=&apos;auto&apos;, leaf_size=30, metric=&apos;minkowski&apos;,
+           metric_params=None, n_jobs=1, n_neighbors=3, p=2,
+           weights=&apos;uniform&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X_test = np.array([[<span class="number">13</span>,<span class="number">10</span>],[<span class="number">5</span>,<span class="number">10</span>]])</span><br><span class="line">knnclf.predict(X_test)</span><br></pre></td></tr></table></figure>
+<pre><code>array([&apos;动作&apos;, &apos;爱情&apos;], dtype=&apos;&lt;U2&apos;)
+</code></pre><h3 id="1）用于分类"><a href="#1）用于分类" class="headerlink" title="1）用于分类"></a>1）用于分类</h3><p>导包，机器学习的算法KNN、数据鸢尾花</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load_iris是机器学习库提供给我们研究算法的数据</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br></pre></td></tr></table></figure>
+<p>获取训练样本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iris = load_iris()</span><br><span class="line">iris</span><br></pre></td></tr></table></figure>
+<pre><code>{&apos;DESCR&apos;: &apos;Iris Plants Database\n====================\n\nNotes\n-----\nData Set Characteristics:\n    :Number of Instances: 150 (50 in each of three classes)\n    :Number of Attributes: 4 numeric, predictive attributes and the class\n    :Attribute Information:\n        - sepal length in cm\n        - sepal width in cm\n        - petal length in cm\n        - petal width in cm\n        - class:\n                - Iris-Setosa\n                - Iris-Versicolour\n                - Iris-Virginica\n    :Summary Statistics:\n\n    ============== ==== ==== ======= ===== ====================\n                    Min  Max   Mean    SD   Class Correlation\n    ============== ==== ==== ======= ===== ====================\n    sepal length:   4.3  7.9   5.84   0.83    0.7826\n    sepal width:    2.0  4.4   3.05   0.43   -0.4194\n    petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)\n    petal width:    0.1  2.5   1.20  0.76     0.9565  (high!)\n    ============== ==== ==== ======= ===== ====================\n\n    :Missing Attribute Values: None\n    :Class Distribution: 33.3% for each of 3 classes.\n    :Creator: R.A. Fisher\n    :Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)\n    :Date: July, 1988\n\nThis is a copy of UCI ML iris datasets.\nhttp://archive.ics.uci.edu/ml/datasets/Iris\n\nThe famous Iris database, first used by Sir R.A Fisher\n\nThis is perhaps the best known database to be found in the\npattern recognition literature.  Fisher\&apos;s paper is a classic in the field and\nis referenced frequently to this day.  (See Duda &amp; Hart, for example.)  The\ndata set contains 3 classes of 50 instances each, where each class refers to a\ntype of iris plant.  One class is linearly separable from the other 2; the\nlatter are NOT linearly separable from each other.\n\nReferences\n----------\n   - Fisher,R.A. &quot;The use of multiple measurements in taxonomic problems&quot;\n     Annual Eugenics, 7, Part II, 179-188 (1936); also in &quot;Contributions to\n     Mathematical Statistics&quot; (John Wiley, NY, 1950).\n   - Duda,R.O., &amp; Hart,P.E. (1973) Pattern Classification and Scene Analysis.\n     (Q327.D83) John Wiley &amp; Sons.  ISBN 0-471-22361-1.  See page 218.\n   - Dasarathy, B.V. (1980) &quot;Nosing Around the Neighborhood: A New System\n     Structure and Classification Rule for Recognition in Partially Exposed\n     Environments&quot;.  IEEE Transactions on Pattern Analysis and Machine\n     Intelligence, Vol. PAMI-2, No. 1, 67-71.\n   - Gates, G.W. (1972) &quot;The Reduced Nearest Neighbor Rule&quot;.  IEEE Transactions\n     on Information Theory, May 1972, 431-433.\n   - See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al&quot;s AUTOCLASS II\n     conceptual clustering system finds 3 classes in the data.\n   - Many, many more ...\n&apos;,
+ &apos;data&apos;: array([[5.1, 3.5, 1.4, 0.2],
+        [4.9, 3. , 1.4, 0.2],
+        [4.7, 3.2, 1.3, 0.2],
+        [4.6, 3.1, 1.5, 0.2],
+        [5. , 3.6, 1.4, 0.2],
+        [5.4, 3.9, 1.7, 0.4],
+        [4.6, 3.4, 1.4, 0.3],
+        [5. , 3.4, 1.5, 0.2],
+        [4.4, 2.9, 1.4, 0.2],
+        [4.9, 3.1, 1.5, 0.1],
+        [5.4, 3.7, 1.5, 0.2],
+        [4.8, 3.4, 1.6, 0.2],
+        [4.8, 3. , 1.4, 0.1],
+        [4.3, 3. , 1.1, 0.1],
+        [5.8, 4. , 1.2, 0.2],
+        [5.7, 4.4, 1.5, 0.4],
+        [5.4, 3.9, 1.3, 0.4],
+        [5.1, 3.5, 1.4, 0.3],
+        [5.7, 3.8, 1.7, 0.3],
+        [5.1, 3.8, 1.5, 0.3],
+        [5.4, 3.4, 1.7, 0.2],
+        [5.1, 3.7, 1.5, 0.4],
+        [4.6, 3.6, 1. , 0.2],
+        [5.1, 3.3, 1.7, 0.5],
+        [4.8, 3.4, 1.9, 0.2],
+        [5. , 3. , 1.6, 0.2],
+        [5. , 3.4, 1.6, 0.4],
+        [5.2, 3.5, 1.5, 0.2],
+        [5.2, 3.4, 1.4, 0.2],
+        [4.7, 3.2, 1.6, 0.2],
+        [4.8, 3.1, 1.6, 0.2],
+        [5.4, 3.4, 1.5, 0.4],
+        [5.2, 4.1, 1.5, 0.1],
+        [5.5, 4.2, 1.4, 0.2],
+        [4.9, 3.1, 1.5, 0.1],
+        [5. , 3.2, 1.2, 0.2],
+        [5.5, 3.5, 1.3, 0.2],
+        [4.9, 3.1, 1.5, 0.1],
+        [4.4, 3. , 1.3, 0.2],
+        [5.1, 3.4, 1.5, 0.2],
+        [5. , 3.5, 1.3, 0.3],
+        [4.5, 2.3, 1.3, 0.3],
+        [4.4, 3.2, 1.3, 0.2],
+        [5. , 3.5, 1.6, 0.6],
+        [5.1, 3.8, 1.9, 0.4],
+        [4.8, 3. , 1.4, 0.3],
+        [5.1, 3.8, 1.6, 0.2],
+        [4.6, 3.2, 1.4, 0.2],
+        [5.3, 3.7, 1.5, 0.2],
+        [5. , 3.3, 1.4, 0.2],
+        [7. , 3.2, 4.7, 1.4],
+        [6.4, 3.2, 4.5, 1.5],
+        [6.9, 3.1, 4.9, 1.5],
+        [5.5, 2.3, 4. , 1.3],
+        [6.5, 2.8, 4.6, 1.5],
+        [5.7, 2.8, 4.5, 1.3],
+        [6.3, 3.3, 4.7, 1.6],
+        [4.9, 2.4, 3.3, 1. ],
+        [6.6, 2.9, 4.6, 1.3],
+        [5.2, 2.7, 3.9, 1.4],
+        [5. , 2. , 3.5, 1. ],
+        [5.9, 3. , 4.2, 1.5],
+        [6. , 2.2, 4. , 1. ],
+        [6.1, 2.9, 4.7, 1.4],
+        [5.6, 2.9, 3.6, 1.3],
+        [6.7, 3.1, 4.4, 1.4],
+        [5.6, 3. , 4.5, 1.5],
+        [5.8, 2.7, 4.1, 1. ],
+        [6.2, 2.2, 4.5, 1.5],
+        [5.6, 2.5, 3.9, 1.1],
+        [5.9, 3.2, 4.8, 1.8],
+        [6.1, 2.8, 4. , 1.3],
+        [6.3, 2.5, 4.9, 1.5],
+        [6.1, 2.8, 4.7, 1.2],
+        [6.4, 2.9, 4.3, 1.3],
+        [6.6, 3. , 4.4, 1.4],
+        [6.8, 2.8, 4.8, 1.4],
+        [6.7, 3. , 5. , 1.7],
+        [6. , 2.9, 4.5, 1.5],
+        [5.7, 2.6, 3.5, 1. ],
+        [5.5, 2.4, 3.8, 1.1],
+        [5.5, 2.4, 3.7, 1. ],
+        [5.8, 2.7, 3.9, 1.2],
+        [6. , 2.7, 5.1, 1.6],
+        [5.4, 3. , 4.5, 1.5],
+        [6. , 3.4, 4.5, 1.6],
+        [6.7, 3.1, 4.7, 1.5],
+        [6.3, 2.3, 4.4, 1.3],
+        [5.6, 3. , 4.1, 1.3],
+        [5.5, 2.5, 4. , 1.3],
+        [5.5, 2.6, 4.4, 1.2],
+        [6.1, 3. , 4.6, 1.4],
+        [5.8, 2.6, 4. , 1.2],
+        [5. , 2.3, 3.3, 1. ],
+        [5.6, 2.7, 4.2, 1.3],
+        [5.7, 3. , 4.2, 1.2],
+        [5.7, 2.9, 4.2, 1.3],
+        [6.2, 2.9, 4.3, 1.3],
+        [5.1, 2.5, 3. , 1.1],
+        [5.7, 2.8, 4.1, 1.3],
+        [6.3, 3.3, 6. , 2.5],
+        [5.8, 2.7, 5.1, 1.9],
+        [7.1, 3. , 5.9, 2.1],
+        [6.3, 2.9, 5.6, 1.8],
+        [6.5, 3. , 5.8, 2.2],
+        [7.6, 3. , 6.6, 2.1],
+        [4.9, 2.5, 4.5, 1.7],
+        [7.3, 2.9, 6.3, 1.8],
+        [6.7, 2.5, 5.8, 1.8],
+        [7.2, 3.6, 6.1, 2.5],
+        [6.5, 3.2, 5.1, 2. ],
+        [6.4, 2.7, 5.3, 1.9],
+        [6.8, 3. , 5.5, 2.1],
+        [5.7, 2.5, 5. , 2. ],
+        [5.8, 2.8, 5.1, 2.4],
+        [6.4, 3.2, 5.3, 2.3],
+        [6.5, 3. , 5.5, 1.8],
+        [7.7, 3.8, 6.7, 2.2],
+        [7.7, 2.6, 6.9, 2.3],
+        [6. , 2.2, 5. , 1.5],
+        [6.9, 3.2, 5.7, 2.3],
+        [5.6, 2.8, 4.9, 2. ],
+        [7.7, 2.8, 6.7, 2. ],
+        [6.3, 2.7, 4.9, 1.8],
+        [6.7, 3.3, 5.7, 2.1],
+        [7.2, 3.2, 6. , 1.8],
+        [6.2, 2.8, 4.8, 1.8],
+        [6.1, 3. , 4.9, 1.8],
+        [6.4, 2.8, 5.6, 2.1],
+        [7.2, 3. , 5.8, 1.6],
+        [7.4, 2.8, 6.1, 1.9],
+        [7.9, 3.8, 6.4, 2. ],
+        [6.4, 2.8, 5.6, 2.2],
+        [6.3, 2.8, 5.1, 1.5],
+        [6.1, 2.6, 5.6, 1.4],
+        [7.7, 3. , 6.1, 2.3],
+        [6.3, 3.4, 5.6, 2.4],
+        [6.4, 3.1, 5.5, 1.8],
+        [6. , 3. , 4.8, 1.8],
+        [6.9, 3.1, 5.4, 2.1],
+        [6.7, 3.1, 5.6, 2.4],
+        [6.9, 3.1, 5.1, 2.3],
+        [5.8, 2.7, 5.1, 1.9],
+        [6.8, 3.2, 5.9, 2.3],
+        [6.7, 3.3, 5.7, 2.5],
+        [6.7, 3. , 5.2, 2.3],
+        [6.3, 2.5, 5. , 1.9],
+        [6.5, 3. , 5.2, 2. ],
+        [6.2, 3.4, 5.4, 2.3],
+        [5.9, 3. , 5.1, 1.8]]),
+ &apos;feature_names&apos;: [&apos;sepal length (cm)&apos;,
+  &apos;sepal width (cm)&apos;,
+  &apos;petal length (cm)&apos;,
+  &apos;petal width (cm)&apos;],
+ &apos;target&apos;: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]),
+ &apos;target_names&apos;: array([&apos;setosa&apos;, &apos;versicolor&apos;, &apos;virginica&apos;], dtype=&apos;&lt;U10&apos;)}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = iris.data</span><br><span class="line">target = iris.target</span><br><span class="line">target_names = iris.target_names</span><br><span class="line">feature_names = iris.feature_names</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">features = DataFrame(data=data,columns = feature_names)</span><br><span class="line">features.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">features.iloc[:,<span class="number">0</span>].std()</span><br></pre></td></tr></table></figure>
+<pre><code>0.828066127977863
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">features.iloc[:,<span class="number">2</span>].std()</span><br></pre></td></tr></table></figure>
+<pre><code>1.7644204199522626
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">features.iloc[:,<span class="number">1</span>].std()</span><br></pre></td></tr></table></figure>
+<pre><code>0.4335943113621737
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">features.iloc[:,<span class="number">3</span>].std()</span><br></pre></td></tr></table></figure>
+<pre><code>0.7631607417008411
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># samples(训练集、测试集)</span></span><br><span class="line">X_train = features.iloc[:<span class="number">130</span>,<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">y_train = target[:<span class="number">130</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试集(验证训练模型的准确度)</span></span><br><span class="line">X_test = features.iloc[<span class="number">130</span>:,<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">y_test = target[<span class="number">130</span>:]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">display(X_train.shape,y_train.shape,X_test.shape,y_test.shape)</span><br></pre></td></tr></table></figure>
+<pre><code>(130, 2)
+
+
+
+(130,)
+
+
+
+(20, 2)
+
+
+
+(20,)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target_names</span><br></pre></td></tr></table></figure>
+<pre><code>array([&apos;setosa&apos;, &apos;versicolor&apos;, &apos;virginica&apos;], dtype=&apos;&lt;U10&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># （离散性的、标称型）目标值是不参与运算的，所以不是必须要转换成数字的格式</span></span><br><span class="line">target</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+</code></pre><p>绘制图形</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">samples = features.iloc[:,<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 展示真实数据的分类情况</span></span><br><span class="line">plt.scatter(samples.iloc[:,<span class="number">0</span>],samples.iloc[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<pre><code>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-2-feaf3557f814&gt; in &lt;module&gt;()
+      1 import matplotlib.pyplot as plt
+      2 get_ipython().run_line_magic(&apos;matplotlib&apos;, &apos;inline&apos;)
+----&gt; 3 samples = features.iloc[:,2:4]
+      4 
+      5 # 展示真实数据的分类情况
+
+
+NameError: name &apos;features&apos; is not defined
+</code></pre><p>定义KNN分类器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knnclf = KNeighborsClassifier(n_neighbors=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>第一步，训练数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knnclf.fit(X_train,y_train)</span><br></pre></td></tr></table></figure>
+<pre><code>KNeighborsClassifier(algorithm=&apos;auto&apos;, leaf_size=30, metric=&apos;minkowski&apos;,
+           metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+           weights=&apos;uniform&apos;)
+</code></pre><p>第二步预测数据：，所预测的数据，自己创造，就是上面所显示图片的背景点  </p>
+<p>生成预测数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型准确度的评估</span></span><br><span class="line"><span class="comment"># 1. 测试样本及应该是随机的</span></span><br><span class="line"><span class="comment"># 2. 测试样本集数量不能太小</span></span><br><span class="line">y_ = knnclf.predict(X_test)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_test</span><br></pre></td></tr></table></figure>
+<pre><code>array([2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_</span><br></pre></td></tr></table></figure>
+<pre><code>array([2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取所有预测点（满屏幕的点）</span></span><br><span class="line">xmin,xmax = samples.iloc[:,<span class="number">0</span>].min(),samples.iloc[:,<span class="number">0</span>].max()</span><br><span class="line">ymin,ymax = samples.iloc[:,<span class="number">1</span>].min(),samples.iloc[:,<span class="number">1</span>].max()</span><br><span class="line"></span><br><span class="line">x = np.linspace(xmin,xmax,<span class="number">100</span>)</span><br><span class="line">y = np.linspace(ymin,ymax,<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">xx,yy = np.meshgrid(x,y)</span><br><span class="line"></span><br><span class="line">X_test = np.c_[xx.ravel(),yy.ravel()]</span><br></pre></td></tr></table></figure>
+<p>对数据进行预测</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_ = knnclf.predict(X_test)</span><br></pre></td></tr></table></figure>
+<p>显示数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line">cmap = ListedColormap([<span class="string">'#aa00ff'</span>,<span class="string">'#00aaff'</span>,<span class="string">'#ffaa00'</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 展示预测数据的分类情况</span></span><br><span class="line">plt.scatter(X_test[:,<span class="number">0</span>],X_test[:,<span class="number">1</span>],c=y_,cmap=cmap)</span><br><span class="line"><span class="comment"># 展示真实数据的分类情况</span></span><br><span class="line">plt.scatter(samples.iloc[:,<span class="number">0</span>],samples.iloc[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x189b2990&gt;
+</code></pre><p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-201841319285.png" alt="Untitled-1-201841319285"></p>
+<h3 id="2）用于回归"><a href="#2）用于回归" class="headerlink" title="2）用于回归"></a>2）用于回归</h3><p>回归用于对趋势的预测</p>
+<p>导包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsRegressor</span><br></pre></td></tr></table></figure>
+<p>生成样本数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成一组符合正弦分布的数据</span></span><br><span class="line">x = np.linspace(-np.pi,np.pi,<span class="number">40</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"><span class="comment"># 原始数据的分布规律</span></span><br><span class="line">plt.scatter(x,y)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x19be92b0&gt;
+</code></pre><p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192811.png" alt="Untitled-1-2018413192811"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">noise = np.random.random(size=<span class="number">20</span>) - <span class="number">0.5</span></span><br><span class="line">noise</span><br></pre></td></tr></table></figure>
+<pre><code>array([-0.01419036, -0.05222776,  0.4114977 , -0.48535771,  0.4725629 ,
+        0.49193969, -0.4352523 , -0.48704335,  0.39377464, -0.32509247,
+        0.09969959, -0.10353899,  0.35402717,  0.09005099, -0.32349592,
+       -0.41517568,  0.13719123,  0.40893228,  0.25830619,  0.00900481])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y[::<span class="number">2</span>] += noise</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x,y)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x18594890&gt;
+</code></pre><p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192816.png" alt="Untitled-1-2018413192816"></p>
+<p>生成测试数据的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X_train = x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">y_train = y</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">knn = KNeighborsRegressor(n_neighbors=<span class="number">7</span>)</span><br><span class="line">knn.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">X_test = np.linspace(-np.pi,np.pi,<span class="number">100</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">y_ = knn.predict(X_test)</span><br><span class="line"></span><br><span class="line">plt.plot(X_test,y_,color=<span class="string">'green'</span>)</span><br><span class="line">plt.scatter(X_train,y_train,color=<span class="string">'orange'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 过拟合</span></span><br><span class="line"><span class="comment"># 欠拟合</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x19b872b0&gt;
+</code></pre><p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192821.png" alt="Untitled-1-2018413192821"></p>
+<p>第一步：生成模型，并训练数据</p>
+<p>第二步：使用模型，预测数据</p>
+<p>绘图显示数据</p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>人类动作识别<br>步行，上楼，下楼，坐着，站立和躺着  </p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413193022.jpg" alt="Untitled-1-2018413193022"><br>数据采集每个人在腰部穿着智能手机，进行了六个活动（步行，上楼，下楼，坐着，站立和躺着）。采用嵌入式加速度计和陀螺仪，以50Hz的恒定速度捕获3轴线性加速度和3轴角速度，来获取数据</p>
+<p>导入数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X_train = np.load(<span class="string">'x_train.npy'</span>)</span><br><span class="line">y_train = np.load(<span class="string">'y_train.npy'</span>)</span><br><span class="line"></span><br><span class="line">X_test = np.load(<span class="string">'x_test.npy'</span>)</span><br><span class="line">y_test = np.load(<span class="string">'y_test.npy'</span>)</span><br><span class="line"></span><br><span class="line">display(X_train.shape,y_train.shape,X_test.shape,y_test.shape)</span><br></pre></td></tr></table></figure>
+<pre><code>(7352, 561)
+
+(7352,)
+
+(2947, 561)
+
+(2947,)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame(X_train).head(</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Series(y_train).unique()</span><br></pre></td></tr></table></figure>
+<pre><code>array([5, 4, 6, 1, 3, 2], dtype=int64)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">label = &#123;<span class="number">1</span>:<span class="string">'WALKING'</span>, </span><br><span class="line">         <span class="number">2</span>:<span class="string">'WALKING UPSTAIRS'</span>, </span><br><span class="line">         <span class="number">3</span>:<span class="string">'WALKING DOWNSTAIRS'</span>,</span><br><span class="line">         <span class="number">4</span>:<span class="string">'SITTING'</span>, </span><br><span class="line">         <span class="number">5</span>:<span class="string">'STANDING'</span>, </span><br><span class="line">         <span class="number">6</span>:<span class="string">'LAYING'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>获取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调整算法参数只能对算法调优，不能决定算法的高度</span></span><br><span class="line">knnclf = KNeighborsClassifier(n_neighbors=<span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># KNN在训练的时候，是不进行运算的（距离）</span></span><br><span class="line">knnclf.fit(X_train,y_train)</span><br></pre></td></tr></table></figure>
+<pre><code>KNeighborsClassifier(algorithm=&apos;auto&apos;, leaf_size=30, metric=&apos;minkowski&apos;,
+           metric_params=None, n_jobs=1, n_neighbors=9, p=2,
+           weights=&apos;uniform&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># KNN在进行预测的时候，才开始计算训练集和测试集中样本点之间的距离</span></span><br><span class="line">y_ = knnclf.predict(X_test[:<span class="number">1000</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类算法的评分就是这么算的</span></span><br><span class="line">(y_ == y_test[:<span class="number">1000</span>]).sum()/y_.size</span><br></pre></td></tr></table></figure>
+<pre><code>0.922
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算分类算法的评分</span></span><br><span class="line">knnclf.score(X_test[:<span class="number">500</span>],y_test[:<span class="number">500</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>0.928
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">8</span>))</span><br><span class="line">colors = [<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>,<span class="string">'green'</span>,<span class="string">'cyan'</span>,<span class="string">'purple'</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">7</span>):</span><br><span class="line">    plt.subplot(<span class="number">2</span>,<span class="number">3</span>,i)</span><br><span class="line">    title = label[i]</span><br><span class="line">    Series(X_train[y_train==i][<span class="number">0</span>]).plot(color=colors[i<span class="number">-1</span>],title=title)</span><br></pre></td></tr></table></figure>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018413192827.png" alt="Untitled-1-2018413192827"></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/04/10/jupyter/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kerry's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        cyss428@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/03/">三月 2015<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2015&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Kerry
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
