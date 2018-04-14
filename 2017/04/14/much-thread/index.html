@@ -43,7 +43,7 @@
     
     <title>
         
-            归档: 2016/11 | 
+            多线程和多进程的区别与联系 | 
         
         Kerry
     </title>
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Kerry">
-    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/archives/2016/11/">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/04/14/much-thread/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kerry">
@@ -230,13 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://yuansuixin.github.io/archives/2016/11/">
+    <meta property="og:url" content="https://yuansuixin.github.io/2017/04/14/much-thread/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2016/11 | Kerry">
+    <meta property="og:title" content="多线程和多进程的区别与联系 | Kerry">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
+    
+        <meta property="article:published_time" content="Fri Apr 14 2017 20:47:49 GMT+0800">
+        <meta property="article:modified_time" content="Sat Apr 14 2018 20:49:01 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -244,13 +247,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://yuansuixin.github.io/archives/2016/11/index.html" />
+        <link rel="canonical" href="https://yuansuixin.github.io/2017/04/14/much-thread/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2017/04/14/much-thread/index.html",
+    "headline": "多线程和多进程的区别与联系",
+    "datePublished": "Fri Apr 14 2017 20:47:49 GMT+0800",
+    "dateModified": "Sat Apr 14 2018 20:49:01 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
 
 
     
@@ -284,96 +317,284 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1）需要频繁创建销毁的优先用线程"><span class="post-toc-number">1.</span> <span class="post-toc-text">1）需要频繁创建销毁的优先用线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2）需要进行大量计算的优先使用线程"><span class="post-toc-number">2.</span> <span class="post-toc-text">2）需要进行大量计算的优先使用线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3）强相关的处理用线程，弱相关的处理用进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">3）强相关的处理用线程，弱相关的处理用进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4）可能要扩展到多机分布的用进程，多核分布的用线程"><span class="post-toc-number">4.</span> <span class="post-toc-text">4）可能要扩展到多机分布的用进程，多核分布的用线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5）都满足需求的情况下，用你最熟悉、最拿手的方式"><span class="post-toc-number">5.</span> <span class="post-toc-text">5）都满足需求的情况下，用你最熟悉、最拿手的方式</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2016/11/08/strategy/">设计模式--策略模式（strategy-pattern）解析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            策略模式（Strategy Pattern）中体现了两个非常基本的面相对象设计的原则：
-
-封装变化的概念
-...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/11/08/strategy/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="kerry's avatar">
-            </div>
-            <div>
-                <strong>kerry</strong>
-                <span>11月 08, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                多线程和多进程的区别与联系
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>4月 14, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=多线程和多进程的区别与联系&url=https://yuansuixin.github.io/2017/04/14/much-thread/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=多线程和多进程的区别与联系&url=https://yuansuixin.github.io/2017/04/14/much-thread/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/04/14/much-thread/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/04/14/much-thread/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>我们按照多个不同的维度，来看看多线程和多进程的对比（注：因为是感性的比较，因此都是相对的，不是说一个好得不得了，另外一个差的无法忍受）。</p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th style="text-align:left">多进程</th>
+<th style="text-align:left">多线程</th>
+<th>总结</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据共享、同步</td>
+<td style="text-align:left">数据共享复杂，需要用IPC；数据是分开的，同步简单</td>
+<td style="text-align:left">因为共享进程数据，数据共享简单，但也是因为这个原因导致同步复杂</td>
+<td>各有优势</td>
+</tr>
+<tr>
+<td>内存、CPU</td>
+<td style="text-align:left">占用内存多，切换复杂，CPU利用率低</td>
+<td style="text-align:left">占用内存少，切换简单，CPU利用率高</td>
+<td>线程占优</td>
+</tr>
+<tr>
+<td>创建销毁、切换</td>
+<td style="text-align:left">创建销毁、切换复杂，速度慢</td>
+<td style="text-align:left">创建销毁、切换简单，速度很快</td>
+<td>线程占优</td>
+</tr>
+<tr>
+<td>编程、调试</td>
+<td style="text-align:left">编程简单，调试简单</td>
+<td style="text-align:left">编程复杂，调试复杂</td>
+<td>进程占优</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td style="text-align:left">进程间不会互相影响</td>
+<td style="text-align:left">一个线程挂掉将导致整个进程挂掉</td>
+<td>进程占优</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td style="text-align:left">适应于多核、多机分布式；如果一台机器不够，扩展到多台机器比较简单</td>
+<td style="text-align:left">适应于多核分布式</td>
+<td>进程占优</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1）需要频繁创建销毁的优先用线程"><a href="#1）需要频繁创建销毁的优先用线程" class="headerlink" title="1）需要频繁创建销毁的优先用线程"></a>1）需要频繁创建销毁的优先用线程</h3><p>原因请看上面的对比。</p>
+<p>这种原则最常见的应用就是Web服务器了，来一个连接建立一个线程，断了就销毁线程，要是用进程，创建和销毁的代价是很难承受的</p>
+<h3 id="2）需要进行大量计算的优先使用线程"><a href="#2）需要进行大量计算的优先使用线程" class="headerlink" title="2）需要进行大量计算的优先使用线程"></a>2）需要进行大量计算的优先使用线程</h3><p>所谓大量计算，当然就是要耗费很多CPU，切换频繁了，这种情况下线程是最合适的。</p>
+<p>这种原则最常见的是图像处理、算法处理。</p>
+<h3 id="3）强相关的处理用线程，弱相关的处理用进程"><a href="#3）强相关的处理用线程，弱相关的处理用进程" class="headerlink" title="3）强相关的处理用线程，弱相关的处理用进程"></a>3）强相关的处理用线程，弱相关的处理用进程</h3><p>什么叫强相关、弱相关？理论上很难定义，给个简单的例子就明白了。</p>
+<p>一般的Server需要完成如下任务：消息收发、消息处理。“消息收发”和“消息处理”就是弱相关的任务，而“消息处理”里面可能又分为“消息解码”、“业务处理”，这两个任务相对来说相关性就要强多了。因此“消息收发”和“消息处理”可以分进程设计，“消息解码”、“业务处理”可以分线程设计。</p>
+<p>当然这种划分方式不是一成不变的，也可以根据实际情况进行调整。</p>
+<h3 id="4）可能要扩展到多机分布的用进程，多核分布的用线程"><a href="#4）可能要扩展到多机分布的用进程，多核分布的用线程" class="headerlink" title="4）可能要扩展到多机分布的用进程，多核分布的用线程"></a>4）可能要扩展到多机分布的用进程，多核分布的用线程</h3><p>原因请看上面对比。</p>
+<h3 id="5）都满足需求的情况下，用你最熟悉、最拿手的方式"><a href="#5）都满足需求的情况下，用你最熟悉、最拿手的方式" class="headerlink" title="5）都满足需求的情况下，用你最熟悉、最拿手的方式"></a>5）都满足需求的情况下，用你最熟悉、最拿手的方式</h3><p>至于“数据共享、同步”、“编程、调试”、“可靠性”这几个维度的所谓的“复杂、简单”应该怎么取舍，我只能说：没有明确的选择方法。但我可以告诉你一个选择原则：如果多进程和多线程都能够满足要求，那么选择你最熟悉、最拿手的那个。 </p>
+<p><strong>需要提醒的是：虽然我给了这么多的选择原则，但实际应用中基本上都是“进程+线程”的结合方式，千万不要真的陷入一种非此即彼的误区。</strong></p>
+<p><strong>消耗资源</strong>：</p>
+<p>从内核的观点看，进程的目的就是担当分配系统资源（CPU时间、内存等）的基本单位。线程是进程的一个执行流，是CPU调度和分派的基本单位，它是比进程更小的能独立运行的基本单位。</p>
+<p>线程，它们彼此之间使用相同的地址空间，共享大部分数据，启动一个线程所花费的空间远远小于启动一个进程所花费的空间，而且，线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。据统计，总的说来，一个进程的开销大约是一个线程开销的30倍左右，当然，在具体的系统上，这个数据可能会有较大的区别。</p>
+<p><strong>通讯方式</strong>：</p>
+<p>进程之间传递数据只能是通过通讯的方式，即费时又不方便。线程时间数据大部分共享（线程函数内部不共享），快捷方便。但是数据同步需要锁对于static变量尤其注意</p>
+<p><strong>线程自身优势：</strong></p>
+<p>提高应用程序响应；使多CPU系统更加有效。操作系统会保证当线程数不大于CPU数目时，不同的线程运行于不同的CPU上；</p>
+<p>改善程序结构。一个既长又复杂的进程可以考虑分为多个线程，成为几个独立或半独立的运行部分，这样的程序会利于理解和修改。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/05/24/reflection1/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/03/02/inner-class/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
