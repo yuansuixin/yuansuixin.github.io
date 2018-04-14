@@ -3,6 +3,15 @@
   
     
     <entry>
+      <title>进程和线程的区别与联系</title>
+      <link href="/2018/04/14/thread-process/"/>
+      <url>/2018/04/14/thread-process/</url>
+      <content type="html"><![CDATA[<h2 id="进程和线程分析"><a href="#进程和线程分析" class="headerlink" title="进程和线程分析"></a>进程和线程分析</h2><p>下面就两者的区别和联系分析如下：</p><table><thead><tr><th></th><th><strong>进程</strong></th><th><strong>线程</strong></th></tr></thead><tbody><tr><td><strong>定义</strong></td><td>资源（CPU时间、内存等）分配的最小单位</td><td>程序执行的最小单位</td></tr><tr><td><strong>区别</strong></td><td>1.独立的地址空间，每创建一个进程，就会给改进程分配一个4G的虚拟内存空间；2.进程是建立在虚拟内存的基础之上的。</td><td>1.没有单独的地址空间（同一进程内的线程共享进程的地址空间）；2.主要是为了将进程的资源申请和调度属性分开。</td></tr></tbody></table><table><thead><tr><th></th><th>进程与线程</th></tr></thead><tbody><tr><td><strong>联系</strong></td><td>1.一个进程有几个线程组成；2.线程与同属一个进程的其他的线程共享进程所拥有的全部资源。</td></tr><tr><td><strong>OS而言</strong></td><td>1.uCOS只有线程的概念，uCOS的整个程序可以理解为一个进程，而其中的任务就可以理解为一个个线程，有自己的堆栈和局部变量，但没有单独的地址空间；2.对于windows，linux等，其有进程和线程。</td></tr><tr><td><strong>线程的优势</strong></td><td>1.和进程相比，它是一种非常”节俭”的多任务操作方式。对进程而言，创建一个新的进程必须分配给它独立的地址空间，建立众多的数据表来维护它的代码段、堆栈段和数据段，这是一种”昂贵”的多任务工作方式。而运行于一个进程中的多个线程，它们彼此之间使用相同的地址空间，共享大部分数据，启动一个线程所花费的空间远远小于启动一个进程所花费的空间，而且，线程间彼此切换所需的时间也远远小于进程间切换所需要的时间；2.与进程相比，线程间的通信机制更方便。对不同进程来说，它们具有独立的数据空间，要进行数据的传递只能通过通信的方式进行，这种方式不仅费时，而且很不方便。线程则不然，由于同一进程下的线程之间共享数据空间，所以一个线程的数据可以直接为其它线程所用，这不仅快捷，而且方便；3.提高应用程序响应。使用多线程技术，将耗时长的操作（time consuming）置于一个新的线程；4.使多CPU系统更加有效。操作系统会保证当线程数不大于CPU数目时，不同的线程运行于不同的CPU上；5.改善程序结构。一个既长又复杂的进程可以考虑分为多个线程，成为几个独立或半独立的运行部分，这样的程序会利于理解和修改。</td></tr></tbody></table><p><strong>区分进程，用户进程，内核线程</strong><br><img src="https://img-blog.csdn.net/20160608152609878?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br><strong>uCOS/Linux</strong><br><strong>状态区别</strong></p><p><img src="https://img-blog.csdn.net/20160608152628491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p><p><img src="https://img-blog.csdn.net/20160608152635956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>异步非阻塞IO模块</title>
       <link href="/2018/04/14/io-asynchronous/"/>
       <url>/2018/04/14/io-asynchronous/</url>
