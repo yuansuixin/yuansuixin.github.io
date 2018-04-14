@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            异步非阻塞IO模块 | 
+        
+        Kerry
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?yLCpShWWLLMEALkrueHy8A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kerry">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2018/04/14/io-asynchronous/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kerry">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://yuansuixin.github.io/2018/04/14/io-asynchronous/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="异步非阻塞IO模块 | Kerry">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Sat Apr 14 2018 17:32:26 GMT+0800">
+        <meta property="article:modified_time" content="Sat Apr 14 2018 17:35:57 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html",
+    "headline": "异步非阻塞IO模块",
+    "datePublished": "Sat Apr 14 2018 17:32:26 GMT+0800",
+    "dateModified": "Sat Apr 14 2018 17:35:57 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#并发"><span class="post-toc-number">1.</span> <span class="post-toc-text">并发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步执行"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">同步执行</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多线程实现并发"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">多线程实现并发</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多进程实现并发"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">多进程实现并发</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多线程和多进程的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">多线程和多进程的区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#异步IO"><span class="post-toc-number">3.</span> <span class="post-toc-text">异步IO</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#协程（微线程）"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">协程（微线程）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#asyncio"><span class="post-toc-number">4.</span> <span class="post-toc-text">asyncio</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TCP"><span class="post-toc-number">4.0.1.</span> <span class="post-toc-text">TCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP"><span class="post-toc-number">4.0.2.</span> <span class="post-toc-text">HTTP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原理"><span class="post-toc-number">4.0.3.</span> <span class="post-toc-text">原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#角色-：使用者"><span class="post-toc-number">4.0.3.1.</span> <span class="post-toc-text">角色 ：使用者</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#gevent"><span class="post-toc-number">5.</span> <span class="post-toc-text">gevent</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Twisted"><span class="post-toc-number">6.</span> <span class="post-toc-text">Twisted</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#tonado"><span class="post-toc-number">7.</span> <span class="post-toc-text">tonado</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，-》gevent-gt-Twisted-gt-Tornado-gt-asyncio"><span class="post-toc-number">7.0.0.1.</span> <span class="post-toc-text">使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，=======》gevent &gt;  Twisted  &gt;   Tornado  &gt; asyncio</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#角色：-NB开发者"><span class="post-toc-number">7.0.0.2.</span> <span class="post-toc-text">角色： NB开发者</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#学习自定义异步IO框架必备知识点"><span class="post-toc-number">7.0.1.</span> <span class="post-toc-text">学习自定义异步IO框架必备知识点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#1-socket客户端，服务端"><span class="post-toc-number">7.0.1.0.0.1.</span> <span class="post-toc-text">1. socket客户端，服务端</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#2-IO多路复用"><span class="post-toc-number">7.0.1.0.0.2.</span> <span class="post-toc-text">2. IO多路复用</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#3"><span class="post-toc-number">7.0.1.0.0.3.</span> <span class="post-toc-text">3.</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自定义异步IO框架"><span class="post-toc-number">7.0.2.</span> <span class="post-toc-text">自定义异步IO框架</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                异步非阻塞IO模块
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>4月 14, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=异步非阻塞IO模块&url=https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=异步非阻塞IO模块&url=https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2018/04/14/io-asynchronous/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<h1 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h1></blockquote>
+<h3 id="同步执行"><a href="#同步执行" class="headerlink" title="同步执行"></a>同步执行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def fetch_async(url):</span><br><span class="line">    response = requests.get(url)</span><br><span class="line">    return response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url_list = [&apos;http://www.github.com&apos;, &apos;http://www.bing.com&apos;]</span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line">    fetch_async(url)</span><br></pre></td></tr></table></figure>
+<h3 id="多线程实现并发"><a href="#多线程实现并发" class="headerlink" title="多线程实现并发"></a>多线程实现并发</h3><ul>
+<li>两种编写形式<ol>
+<li>请求和处理放在一起</li>
+<li>请求和处理分开，请求成功后执行回调函数，降低了耦合性</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">可以实现并发</span><br><span class="line">但是，请求发送出去和返回之前，中间时期线程空闲</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">########### 编写方式一################</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def task(url):</span><br><span class="line"> response = requests.get(url) print(url,response) # 处理返回值 # 写正则</span><br><span class="line"></span><br><span class="line">pool = ThreadPoolExecutor(7)</span><br><span class="line">url_list = [</span><br><span class="line"> &apos;https://www.baidu.com/&apos;, &apos;https://www.sina.com/&apos;, &apos;https://www.zhihu.com/&apos;, &apos;https://www.autohome.com/&apos;, &apos;https://www.bing.com/&apos;, &apos;https://www.csdn.net/&apos;, &apos;https://www.oschina.net/&apos;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line"> pool.submit(task,url) pool.shutdown(wait=True)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">########### 编写方式二 回调函数################</span><br><span class="line"></span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def task(url):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"> 只下载页面  :param url:  :return:</span><br><span class="line"> &apos;&apos;&apos;  response = requests.get(url)</span><br><span class="line">    print(url,response)</span><br><span class="line"></span><br><span class="line">def done(future,*args,**kwargs):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"> 请求成功之后，执行的回调函数，处理一些东西 与编写方式一来说，降低了耦合度  :param future:  :param args:  :param kwargs:  :return:</span><br><span class="line"> &apos;&apos;&apos;  print(future,args,kwargs)</span><br><span class="line">    print(future.result,args,kwargs)</span><br><span class="line">    response = future.result()</span><br><span class="line">    print(response.status_code,response.content)</span><br><span class="line"></span><br><span class="line">pool = ThreadPoolExecutor(7)</span><br><span class="line">url_list = [</span><br><span class="line">    &apos;https://www.baidu.com/&apos;,</span><br><span class="line">    &apos;https://www.sina.com/&apos;,</span><br><span class="line">    &apos;https://www.zhihu.com/&apos;,</span><br><span class="line">    &apos;https://www.autohome.com/&apos;,</span><br><span class="line">    &apos;https://www.bing.com/&apos;,</span><br><span class="line">    &apos;https://www.csdn.net/&apos;,</span><br><span class="line">    &apos;https://www.oschina.net/&apos;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line">    v= pool.submit(task,url)</span><br><span class="line">    # 执行回调函数，可以有多个回调</span><br><span class="line">  v.add_done_callback(done)</span><br><span class="line"></span><br><span class="line">pool.shutdown(wait=True)</span><br></pre></td></tr></table></figure>
+<h3 id="多进程实现并发"><a href="#多进程实现并发" class="headerlink" title="多进程实现并发"></a>多进程实现并发</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">可以实现并发</span><br><span class="line">但是，请求发送出去和返回之前，中间时期线程空闲</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">########### 编写方式一################</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">from concurrent.futures import ProcessPoolExecutor</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def task(url):</span><br><span class="line"> response = requests.get(url) print(url,response) # 处理返回值 # 写正则</span><br><span class="line"></span><br><span class="line">pool = ProcessPoolExecutor(7)</span><br><span class="line">url_list = [</span><br><span class="line"> &apos;https://www.baidu.com/&apos;, &apos;https://www.sina.com/&apos;, &apos;https://www.zhihu.com/&apos;, &apos;https://www.autohome.com/&apos;, &apos;https://www.bing.com/&apos;, &apos;https://www.csdn.net/&apos;, &apos;https://www.oschina.net/&apos;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line"> pool.submit(task,url) pool.shutdown(wait=True)</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">########### 编写方式二  回调函数################</span><br><span class="line"></span><br><span class="line">from concurrent.futures import ProcessPoolExecutor</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def task(url):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"> 只下载页面  :param url:  :return:</span><br><span class="line"> &apos;&apos;&apos;  response = requests.get(url)</span><br><span class="line">    print(url,response)</span><br><span class="line"></span><br><span class="line">def done(future,*args,**kwargs):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"> 请求成功之后，执行的回调函数，处理一些东西 与编写方式一来说，降低了耦合度  :param future:  :param args:  :param kwargs:  :return:</span><br><span class="line"> &apos;&apos;&apos;  print(future,args,kwargs)</span><br><span class="line">    print(future.result,args,kwargs)</span><br><span class="line">    response = future.result()</span><br><span class="line">    print(response.status_code,response.content)</span><br><span class="line"></span><br><span class="line">pool = ProcessPoolExecutor(7)</span><br><span class="line">url_list = [</span><br><span class="line">    &apos;https://www.baidu.com/&apos;,</span><br><span class="line">    &apos;https://www.sina.com/&apos;,</span><br><span class="line">    &apos;https://www.zhihu.com/&apos;,</span><br><span class="line">    &apos;https://www.autohome.com/&apos;,</span><br><span class="line">    &apos;https://www.bing.com/&apos;,</span><br><span class="line">    &apos;https://www.csdn.net/&apos;,</span><br><span class="line">    &apos;https://www.oschina.net/&apos;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line">    v= pool.submit(task,url)</span><br><span class="line">    # 执行回调函数，可以有多个回调</span><br><span class="line">  v.add_done_callback(done)</span><br><span class="line"></span><br><span class="line">pool.shutdown(wait=True)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h1 id="多线程和多进程的区别"><a href="#多线程和多进程的区别" class="headerlink" title="多线程和多进程的区别"></a>多线程和多进程的区别</h1></blockquote>
+<ul>
+<li>多线程 IO密集型，不用通过cpu</li>
+<li>多进程 计算密集型</li>
+</ul>
+<blockquote>
+<h1 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h1></blockquote>
+<h3 id="协程（微线程）"><a href="#协程（微线程）" class="headerlink" title="协程（微线程）"></a>协程（微线程）</h3><pre><code>- 协程能完成切换，什么时候切换得需要咱们自己设
+- 加上http请求的话，就是请求回来之后切换
+- 加上异步IO的功能就等同于一个线程发送N个http请求，asyncio可以帮助我们完成这个操作
+</code></pre><blockquote>
+<h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1></blockquote>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><pre><code>- 使用socket实现
+​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">client = socket()</span><br><span class="line">client.connect(...)</span><br><span class="line">client.send(b&apos;ffdsafdsa&apos;)</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><pre><code>- HTTP是基于TCP做的
+- 也是使用socket实现
+
+​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#http是基于tcp的，只不过发送的数据不一样，http有固定的数据格式</span><br><span class="line">data = &quot;GET %s HTTP/1.0\r\nHost: %s\r\n\r\n&quot;</span><br><span class="line">client = socket()</span><br><span class="line">client.connect(...)</span><br><span class="line">client.send(data)</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><blockquote>
+<blockquote>
+<h4 id="角色-：使用者"><a href="#角色-：使用者" class="headerlink" title="角色 ：使用者"></a>角色 ：使用者</h4></blockquote>
+</blockquote>
+<ul>
+<li>asyncio.sleep(5) 等待</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'before ....task'</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># 发送http请求，但是asyncio只支持TCP获取结果，那么我们就需要自己弄成http请求</span></span><br><span class="line">    print(<span class="string">'end ....task'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tasks = [task(),task()]</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(asyncio.gather(*tasks))</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>自己封装Http数据包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line"></span><br><span class="line">###自己封装http的数据包</span><br><span class="line">@asyncio.coroutine</span><br><span class="line">def task(host, url=&apos;/&apos;):</span><br><span class="line">    print(host, url)</span><br><span class="line">    # 创建链接</span><br><span class="line">    reader, writer = yield from asyncio.open_connection(host, 80)</span><br><span class="line"></span><br><span class="line">    # http请求的格式</span><br><span class="line">    request_header_content = &quot;&quot;&quot;GET %s HTTP/1.0\r\nHost: %s\r\n\r\n&quot;&quot;&quot; % (url, host,)</span><br><span class="line">    request_header_content = bytes(request_header_content, encoding=&apos;utf-8&apos;)</span><br><span class="line"></span><br><span class="line">    writer.write(request_header_content)</span><br><span class="line">    yield from writer.drain()</span><br><span class="line">    text = yield from reader.read()</span><br><span class="line">    print(host, url, text)</span><br><span class="line">    writer.close()</span><br><span class="line"></span><br><span class="line">tasks = [</span><br><span class="line">    task(&apos;www.cnblogs.com&apos;, &apos;/wupeiqi/&apos;),</span><br><span class="line">    task(&apos;dig.chouti.com&apos;, &apos;/pic/show?nid=4073644713430508&amp;lid=10273091&apos;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">results = loop.run_until_complete(asyncio.gather(*tasks))</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>aiohttp模块，封装了Http数据包，这个包需要下载，</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import aiohttp</span><br><span class="line">import asyncio</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@asyncio.coroutine</span><br><span class="line">def fetch_async(url):</span><br><span class="line">    print(url)</span><br><span class="line">    response = yield from aiohttp.request(&apos;GET&apos;, url)</span><br><span class="line">    # data = yield from response.read()</span><br><span class="line">    # print(url, data)</span><br><span class="line">    print(url, response)</span><br><span class="line">    response.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tasks = [fetch_async(&apos;http://www.baidu.com/&apos;), fetch_async(&apos;http://www.chouti.com/&apos;)]</span><br><span class="line"></span><br><span class="line">event_loop = asyncio.get_event_loop()</span><br><span class="line">results = event_loop.run_until_complete(asyncio.gather(*tasks))</span><br><span class="line">event_loop.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>requests模块，封装了Http数据包，也是需要下载的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@asyncio.coroutine</span><br><span class="line">def task(func, *args):</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    future = loop.run_in_executor(None, func, *args)</span><br><span class="line">    response = yield from future</span><br><span class="line">    print(response.url, response.content)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tasks = [</span><br><span class="line">    task(requests.get, &apos;http://www.cnblogs.com/wupeiqi/&apos;),</span><br><span class="line">    task(requests.get, &apos;http://dig.chouti.com/pic/show?nid=4073644713430508&amp;lid=10273091&apos;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">results = loop.run_until_complete(asyncio.gather(*tasks))</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h1 id="gevent"><a href="#gevent" class="headerlink" title="gevent"></a>gevent</h1></blockquote>
+<ul>
+<li>和asyncio的本质原理一致，实现方式不同，依赖了协程的greenlet模块，和异步IO的结合</li>
+<li><p>需要安装greenlet，gevent</p>
+</li>
+<li><p>gevent+requests模块</p>
+</li>
+<li>gevent(协程池，最多发多少个请求)+requests模块 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import gevent</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">from gevent import monkey</span><br><span class="line"></span><br><span class="line">monkey.patch_all()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fetch_async(method, url, req_kwargs):</span><br><span class="line">    print(method, url, req_kwargs)</span><br><span class="line">    response = requests.request(method=method, url=url, **req_kwargs)</span><br><span class="line">    print(response.url, response.content)</span><br><span class="line"></span><br><span class="line"># ##### 发送请求 #####</span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://www.python.org/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line">    gevent.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://www.yahoo.com/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line">    gevent.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://github.com/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"># ##### 发送请求（协程池控制最大协程数量） #####</span><br><span class="line"># from gevent.pool import Pool</span><br><span class="line"># pool = Pool(None)</span><br><span class="line"># gevent.joinall([</span><br><span class="line">#     pool.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://www.python.org/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line">#     pool.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://www.yahoo.com/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line">#     pool.spawn(fetch_async, method=&apos;get&apos;, url=&apos;https://www.github.com/&apos;, req_kwargs=&#123;&#125;),</span><br><span class="line"># ])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>gevent+requests==》 grequests 模块，需要下载，其实原理就是gevent和requests的原理，只不过做了个封装而已</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import grequests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">request_list = [</span><br><span class="line">    grequests.get(&apos;http://httpbin.org/delay/1&apos;, timeout=0.001),</span><br><span class="line">    grequests.get(&apos;http://fakedomain/&apos;),</span><br><span class="line">    grequests.get(&apos;http://httpbin.org/status/500&apos;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ##### 执行并获取响应列表 #####</span><br><span class="line"># response_list = grequests.map(request_list)</span><br><span class="line"># print(response_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ##### 执行并获取响应列表（处理异常） #####</span><br><span class="line"># def exception_handler(request, exception):</span><br><span class="line"># print(request,exception)</span><br><span class="line">#     print(&quot;Request failed&quot;)</span><br><span class="line"></span><br><span class="line"># response_list = grequests.map(request_list, exception_handler=exception_handler)</span><br><span class="line"># print(response_list)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h1 id="Twisted"><a href="#Twisted" class="headerlink" title="Twisted"></a>Twisted</h1></blockquote>
+<ul>
+<li>scarpy框架底层使用的Twisted实现的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">from twisted.internet import defer</span><br><span class="line">from twisted.web.client import getPage</span><br><span class="line">from twisted.internet import reactor</span><br><span class="line"></span><br><span class="line">def one_done(arg):</span><br><span class="line">    print(arg)</span><br><span class="line"></span><br><span class="line">def all_done(arg):</span><br><span class="line">    print(&apos;done&apos;)</span><br><span class="line">    reactor.stop()</span><br><span class="line"></span><br><span class="line">@defer.inlineCallbacks</span><br><span class="line">def task(url):</span><br><span class="line">    res = getPage(bytes(url, encoding=&apos;utf8&apos;)) # 发送Http请求</span><br><span class="line">    res.addCallback(one_done)</span><br><span class="line">    yield res</span><br><span class="line"></span><br><span class="line">url_list = [</span><br><span class="line">    &apos;http://www.cnblogs.com&apos;,</span><br><span class="line">    &apos;http://www.cnblogs.com&apos;,</span><br><span class="line">    &apos;http://www.cnblogs.com&apos;,</span><br><span class="line">    &apos;http://www.cnblogs.com&apos;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">defer_list = [] # [特殊，特殊，特殊(已经向url发送请求)],都是defer对象</span><br><span class="line">## 对URl进行循环，拿到一个url就执行task任务，发送Http请求，发完请求就返回，已经向url发送完请求的特殊对象</span><br><span class="line"># 将这些特殊对象添加到defer_list列表中，将这个列表传入DeferredList对象中，那么这些特殊的对象就成了defer对象，</span><br><span class="line"># 这些请求每返回一个请求就会执行一次one_done方法，同时reactor.run()死循环一直在检测是否所有请求都返回了，这里做了请求返回数量统计，如果所有的请求都返回了，</span><br><span class="line"># #执行all_done方法，将reactor死循环结束</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for url in url_list:</span><br><span class="line">    v = task(url)</span><br><span class="line">    defer_list.append(v)</span><br><span class="line"></span><br><span class="line">d = defer.DeferredList(defer_list)</span><br><span class="line">d.addBoth(all_done)</span><br><span class="line">reactor.run() # 死循环</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h1 id="tonado"><a href="#tonado" class="headerlink" title="tonado"></a>tonado</h1></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">from tornado.httpclient import AsyncHTTPClient</span><br><span class="line">from tornado.httpclient import HTTPRequest</span><br><span class="line">from tornado import ioloop</span><br><span class="line"></span><br><span class="line">COUNT = 0</span><br><span class="line">def handle_response(response):</span><br><span class="line">    global COUNT</span><br><span class="line">    COUNT -= 1</span><br><span class="line">    if response.error:</span><br><span class="line">        print(&quot;Error:&quot;, response.error)</span><br><span class="line">    else:</span><br><span class="line">        print(response.body)</span><br><span class="line">        # 方法同twisted</span><br><span class="line">        # ioloop.IOLoop.current().stop()</span><br><span class="line">    if COUNT == 0:</span><br><span class="line">        ioloop.IOLoop.current().stop()</span><br><span class="line"></span><br><span class="line">def func():</span><br><span class="line">    url_list = [</span><br><span class="line">        &apos;http://www.baidu.com&apos;,</span><br><span class="line">        &apos;http://www.bing.com&apos;,</span><br><span class="line">    ]</span><br><span class="line">    global COUNT</span><br><span class="line">    COUNT = len(url_list)</span><br><span class="line">    for url in url_list:</span><br><span class="line">        print(url)</span><br><span class="line">        http_client = AsyncHTTPClient()</span><br><span class="line">        http_client.fetch(HTTPRequest(url), handle_response)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ioloop.IOLoop.current().add_callback(func)</span><br><span class="line">ioloop.IOLoop.current().start() # 死循环</span><br></pre></td></tr></table></figure>
+<h4 id="使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，-》gevent-gt-Twisted-gt-Tornado-gt-asyncio"><a href="#使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，-》gevent-gt-Twisted-gt-Tornado-gt-asyncio" class="headerlink" title="使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，=======》gevent &gt;  Twisted  &gt;   Tornado  &gt; asyncio"></a>使用哪个最好呢，一般都是直接使用的框架，人家已经帮我们封装好了，如果是需要自己写，=======》gevent &gt;  Twisted  &gt;   Tornado  &gt; asyncio</h4><p>以上均是Python内置以及第三方模块提供异步IO请求模块，使用简便大大提高效率，而对于异步IO请求的本质则是【非阻塞Socket】+【IO多路复用】</p>
+<blockquote>
+<blockquote>
+<h4 id="角色：-NB开发者"><a href="#角色：-NB开发者" class="headerlink" title="角色： NB开发者"></a>角色： NB开发者</h4></blockquote>
+</blockquote>
+<h3 id="学习自定义异步IO框架必备知识点"><a href="#学习自定义异步IO框架必备知识点" class="headerlink" title="学习自定义异步IO框架必备知识点"></a>学习自定义异步IO框架必备知识点</h3><h6 id="1-socket客户端，服务端"><a href="#1-socket客户端，服务端" class="headerlink" title="1. socket客户端，服务端"></a>1. socket客户端，服务端</h6><pre><code>- 连接是阻塞的，receive也会阻塞
+- setblocking(0)的话连接就不会阻塞了，无数据（连接无响应，数据未返回）就报错
+- 不管阻塞或者是非阻塞，连接都会发到远程，阻塞的话就会等，等着连接回来
+</code></pre><h6 id="2-IO多路复用"><a href="#2-IO多路复用" class="headerlink" title="2. IO多路复用"></a>2. IO多路复用</h6><pre><code>- 客户端
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">   socket对象1.connet（）</span><br><span class="line">   socket对象2.connet（）</span><br><span class="line">   socket对象3.connet（）</span><br><span class="line">except EX...</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line"># 监听对象</span><br><span class="line">    r,w,e = select.select([socket对象，socket对象。。。],[socket对象，socket对象。。。],[],0.05)</span><br><span class="line">    e 表示多路复用发生异常，错误就会放到e里面</span><br><span class="line">    # 表示有人给我发送数据</span><br><span class="line">    r = [socket对象1，]</span><br><span class="line">       xx = socket对象1.recv()</span><br><span class="line">    # 表示我已经和别人创建链接成功</span><br><span class="line">    w = [socket对象1，]</span><br><span class="line">        socket对象1.send(&apos;GET %s HTTP/1.0\r\nHost: %s\r\n\r\n&apos;)</span><br></pre></td></tr></table></figure>
+<h6 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h6><ul>
+<li>select.select监听对象的内部并不是只能有socket对象，但是必须有，fileno方法，并且返回一个文件描述符<ul>
+<li>select内部：对象.fileno()</li>
+<li>Foo（）内部封装socket文件描述符</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Foo:</span><br><span class="line">    def fileno(self):</span><br><span class="line">        obj = socket()</span><br><span class="line">        return obj.fileno()</span><br><span class="line"></span><br><span class="line">#这个对象必须有：fileno方法，并返回一个文件描述符</span><br><span class="line">    r,w,e = select.select([对象，对象。。。],[对象，对象。。。],[],0.05)</span><br></pre></td></tr></table></figure>
+<h3 id="自定义异步IO框架"><a href="#自定义异步IO框架" class="headerlink" title="自定义异步IO框架"></a>自定义异步IO框架</h3><ul>
+<li>Http请求的本质，阻塞的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line"></span><br><span class="line">####################HTTP请求本质，阻塞的#######################</span><br><span class="line">import select</span><br><span class="line"></span><br><span class="line">sk = socket.socket()</span><br><span class="line"># 1.链接</span><br><span class="line">sk.connect((&apos;www.baidu.com&apos;,80,)) # 阻塞</span><br><span class="line">print(&apos;连接成功了。。。&apos;)</span><br><span class="line"></span><br><span class="line"># 2，链接成功后发送消息</span><br><span class="line">sk.send(b&apos;GET / HTTP/1.0\r\nHost:www.baidu.com\r\n\r\n&apos;)</span><br><span class="line"># sk.send(b&apos;POST / HTTP/1.0\r\nHost:www.baidu.com\r\n\r\nk1=v1&amp;k2=v2&apos;)</span><br><span class="line"># 3，等待着服务端响应</span><br><span class="line">data = sk.recv(8096)  # 阻塞</span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line"># 关闭链接</span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Http请求本质，非阻塞的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sk = socket.socket()</span><br><span class="line">sk.setblocking(False)</span><br><span class="line"># 1.链接</span><br><span class="line">try:</span><br><span class="line">    sk.connect((&apos;www.baidu.com&apos;,80,)) # 阻塞</span><br><span class="line">    print(&apos;连接成功了。。。&apos;)</span><br><span class="line">except BlockingIOError as e:</span><br><span class="line">    print(e)</span><br><span class="line"># 发送数据就需要连接成功后发送，需要检测着sk是否连接成功，然而这种方法就不好了，那么下面的方法就产生了</span><br><span class="line"># 2，链接成功后发送消息</span><br><span class="line">sk.send(b&apos;GET / HTTP/1.0\r\nHost:www.baidu.com\r\n\r\n&apos;)</span><br><span class="line"># sk.send(b&apos;POST / HTTP/1.0\r\nHost:www.baidu.com\r\n\r\nk1=v1&amp;k2=v2&apos;)</span><br><span class="line"># 3，等待着服务端响应</span><br><span class="line">data = sk.recv(8096)  # 阻塞</span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line"># 关闭链接</span><br><span class="line">sk.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>非阻塞异步IO框架</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### Socket客户端的本质</span><br><span class="line"># ### 所有的框架分割请求头和请求体的时候都是使用的split方法</span><br><span class="line"></span><br><span class="line">### 封装socket和主机名</span><br><span class="line">class HttpRequest:</span><br><span class="line">    def __init__(self,sk,host,callback):</span><br><span class="line">        self.socket = sk</span><br><span class="line">        self.host = host</span><br><span class="line">        self.callback = callback</span><br><span class="line"></span><br><span class="line">    def fileno(self):</span><br><span class="line">        return self.socket.fileno()</span><br><span class="line"></span><br><span class="line">class HttpResponse:</span><br><span class="line">    def __init__(self,recv_data):</span><br><span class="line">        self.recv_data = recv_data</span><br><span class="line">        self.header_dict = &#123;&#125;</span><br><span class="line">        self.body= None</span><br><span class="line">        self.initialize()</span><br><span class="line"></span><br><span class="line">    def initialize(self):</span><br><span class="line">        # 将请求头和请求题分割</span><br><span class="line">        headers, body = self.recv_data.split(b&apos;\r\n\r\n&apos;, 1)</span><br><span class="line">        self.body = body</span><br><span class="line">        headers_list = headers.split(b&apos;\r\n&apos;)</span><br><span class="line">        for h in headers_list:</span><br><span class="line">            h_str = str(h,encoding=&apos;utf-8&apos;)</span><br><span class="line">            v = h_str.split(&apos;:&apos;,1)</span><br><span class="line">            if len(v) ==2:</span><br><span class="line">                self.header_dict[v[0]] = v[1]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class AsyncRequest:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.conn = []</span><br><span class="line">        self.connection = [] # 用于检测是否已经连接成功，有谁，谁就还没有连接成功呢</span><br><span class="line"></span><br><span class="line">    def add_request(self,host,callback):</span><br><span class="line">        try:</span><br><span class="line">            sk = socket.socket()</span><br><span class="line">            # 将其变成非阻塞的</span><br><span class="line">            sk.setblocking(0)</span><br><span class="line">            sk.connect((host,80,))</span><br><span class="line">        except BlockingIOError as e:</span><br><span class="line">            pass</span><br><span class="line">        request = HttpRequest(sk,host,callback)</span><br><span class="line">        self.conn.append(request)</span><br><span class="line">        self.connection.append(request)</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        # 事件循环</span><br><span class="line">        while True:</span><br><span class="line">            # IO的多路复用</span><br><span class="line">            rlist,wlist,elist = select.select(self.conn,self.connection,self.conn,0.05)</span><br><span class="line">            #每一个w表示一个HttpRequest对象</span><br><span class="line">            for w in wlist:</span><br><span class="line">                print(w.host,&apos;连接成功&apos;)</span><br><span class="line">                # 只要能循环到，表示socket和服务器端已经连接成功</span><br><span class="line">                tp1 = &quot;GET / HTTP/1.0\r\nHost:%s\r\n\r\n&quot;%(w.host)</span><br><span class="line">                w.socket.send(bytes(tp1,encoding=&apos;utf-8&apos;))</span><br><span class="line">                # 连接只连接一次，成功之后删掉就可以了</span><br><span class="line">                self.connection.remove(w)</span><br><span class="line"></span><br><span class="line">            # 接收的数据</span><br><span class="line">            for r in rlist:</span><br><span class="line">                print(r.host, &apos;有数据返回&apos;)</span><br><span class="line">                # r是HttpRequest对象</span><br><span class="line">                #  如果有数据就去接收</span><br><span class="line">                recv_data = bytes()</span><br><span class="line">                while True:</span><br><span class="line">                    try:</span><br><span class="line">                        chunk = r.socket.recv(8096)</span><br><span class="line">                        recv_data += chunk</span><br><span class="line">                    except Exception as e:</span><br><span class="line">                        break</span><br><span class="line">                response = HttpResponse(recv_data)</span><br><span class="line">                # 真正用户返回过来的数据</span><br><span class="line">                print(r.host,&apos;返回的数据&apos;,recv_data)</span><br><span class="line">                # 对返回的数据进行处理，执行相对应的回调函数</span><br><span class="line">                r.callback(response)</span><br><span class="line">                r.socket.close()</span><br><span class="line">                self.conn.remove(r)</span><br><span class="line"></span><br><span class="line">            if len(self.conn) == 0:</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">def f1(response):</span><br><span class="line">    print(&apos;保存文件&apos;,response.header_dict)</span><br><span class="line">def f2(response):</span><br><span class="line">    print(&apos;保存文件到数据库&apos;, response.header_dict)</span><br><span class="line"></span><br><span class="line"># 字典格式，每个url对应着他的回调函数</span><br><span class="line">url_list = [</span><br><span class="line">    &#123;&apos;host&apos;:&apos;www.baidu.com&apos;,&apos;callback&apos;:f1&#125;,</span><br><span class="line">    &#123;&apos;host&apos;:&apos;cn.bing.com&apos;,&apos;callback&apos;:f2&#125;,</span><br><span class="line">    &#123;&apos;host&apos;:&apos;www.enblogs.com&apos;,&apos;callback&apos;:f2&#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">req = AsyncRequest()</span><br><span class="line">for item in url_list:</span><br><span class="line">    req.add_request(item[&apos;host&apos;],item[&apos;callback&apos;])</span><br><span class="line">req.run()</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/yuansuixin/IO-Asynchronous" title="源码下载" target="_blank" rel="noopener">以上所有源码下载</a></p>
+<ul>
+<li>什么是异步IO<ul>
+<li>异步IO是相对来说的，如果有人来用的话，只需要给url和回调函数就可以，请求完成之后，会自动调用回调函数，对于使用的人来说就是异步，其实就是回调</li>
+<li>对于开发者来说，就不是异步的</li>
+<li>select仅仅是IO多路复用，只能同时监听多个对象，他自己完成不了，不能实现异步，只能监听对象，谁又变化就记录下来，利用其特性可以开发出异步IO模块</li>
+<li>异步IO  （非阻塞的socket+IO多路复用就可以开发出）<ul>
+<li>异步的IO请求，当有多个请求的时候，可以做多个事情，而不是一直等着，请求返回时自动调用回调函数<br>-（单个线程伪造了好多请求发过去，多并发）</li>
+<li>socket非阻塞</li>
+<li>select监听的时候，可以封装成自己的对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/04/13/KNN/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kerry's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        cyss428@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/03/">三月 2015<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2015&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Kerry
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
