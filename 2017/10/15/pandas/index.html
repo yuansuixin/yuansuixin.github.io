@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            数据分析-----pandas,数据加载，透视表和交叉表 | 
+        
+        Kerry
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?yLCpShWWLLMEALkrueHy8A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kerry">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/10/15/pandas/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kerry">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://yuansuixin.github.io/2017/10/15/pandas/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="数据分析-----pandas,数据加载，透视表和交叉表 | Kerry">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Sun Oct 15 2017 16:49:26 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 15 2018 16:53:23 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://yuansuixin.github.io/2017/10/15/pandas/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2017/10/15/pandas/index.html",
+    "headline": "数据分析-----pandas,数据加载，透视表和交叉表",
+    "datePublished": "Sun Oct 15 2017 16:49:26 GMT+0800",
+    "dateModified": "Sun Apr 15 2018 16:53:23 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据分析知识点"><span class="post-toc-number">1.</span> <span class="post-toc-text">数据分析知识点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pandas中的绘图函数"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">pandas中的绘图函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线形图"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">线形图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#柱状图"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">柱状图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#直方图"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">直方图</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#练习"><span class="post-toc-number">1.4.0.1.</span> <span class="post-toc-text">练习</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#散布图"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">散布图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据加载"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">数据加载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read-csv和read-table这两个使用最多"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read_csv和read_table这两个使用最多</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#透视表和交叉表"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">透视表和交叉表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#透视表"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">透视表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#交叉表"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">交叉表</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                数据分析-----pandas,数据加载，透视表和交叉表
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>10月 15, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=数据分析-----pandas,数据加载，透视表和交叉表&url=https://yuansuixin.github.io/2017/10/15/pandas/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=数据分析-----pandas,数据加载，透视表和交叉表&url=https://yuansuixin.github.io/2017/10/15/pandas/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/10/15/pandas/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/10/15/pandas/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="数据分析知识点"><a href="#数据分析知识点" class="headerlink" title="数据分析知识点"></a>数据分析知识点</h1><ul>
+<li>数据加载</li>
+<li>透视表和交叉表</li>
+<li>pandas中的绘图函数</li>
+<li>数据加载</li>
+</ul>
+<h2 id="pandas中的绘图函数"><a href="#pandas中的绘图函数" class="headerlink" title="pandas中的绘图函数"></a>pandas中的绘图函数</h2><p>Series和DataFrame都有一个用于生成各类图表的plot方法。默认情况下，它们所生成的是线形图</p>
+<h2 id="线形图"><a href="#线形图" class="headerlink" title="线形图"></a>线形图</h2><p>简单的Series图表示例,plot()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(<span class="number">2010</span>,<span class="number">2018</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = Series(index = np.arange(<span class="number">2010</span>,<span class="number">2018</span>,<span class="number">1</span>),data = [<span class="number">100</span>,<span class="number">110</span>,<span class="number">90</span>,<span class="number">300</span>,<span class="number">700</span>,<span class="number">2000</span>,<span class="number">5000</span>,<span class="number">10000</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.plot()</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162512105?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = np.arange(-np.pi,np.pi,<span class="number">0.1</span>)</span><br><span class="line">y = np.sin(x) + <span class="number">2</span>*np.cos(x)</span><br><span class="line">s1 = Series(index=x,data=y)</span><br><span class="line">s1.plot(kind=<span class="string">'line'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162616104?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>简单的DataFrame图表示例,plot()</p>
+<ul>
+<li>图例的位置可能会随着数据的不同而不同</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">columns = [<span class="string">'dancer'</span>,<span class="string">'lucy'</span>,<span class="string">'mery'</span>]</span><br><span class="line">index = [<span class="string">'first'</span>,<span class="string">'second'</span>,<span class="string">'third'</span>,<span class="string">'fouth'</span>]</span><br><span class="line">data = np.random.randint(<span class="number">0</span>,<span class="number">150</span>,size=(<span class="number">4</span>,<span class="number">3</span>))</span><br><span class="line">df = DataFrame(data=data,index=index,columns=columns)</span><br><span class="line">df.plot()</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162656413?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">score = pd.read_excel(<span class="string">'score.xls'</span>)</span><br><span class="line"><span class="comment"># 版面的绘制</span></span><br><span class="line">score.plot()</span><br><span class="line"><span class="comment"># 图片保存</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162715890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="柱状图"><a href="#柱状图" class="headerlink" title="柱状图"></a>柱状图</h2><p>Series柱状图示例,kind = ‘bar’/‘barh’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = Series(index=[<span class="string">'dancer'</span>,<span class="string">'mery'</span>,<span class="string">'lucy'</span>],data=[<span class="number">100</span>,<span class="number">98</span>,<span class="number">60</span>])</span><br><span class="line">s.plot(kind=<span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162738014?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>DataFrame柱状图示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = np.random.randint(<span class="number">0</span>,<span class="number">100</span>,size=(<span class="number">5</span>,<span class="number">3</span>))</span><br><span class="line">index = list(<span class="string">'ABCDE'</span>)</span><br><span class="line">columns = [<span class="string">'python'</span>,<span class="string">'java'</span>,<span class="string">'php'</span>]</span><br><span class="line">df = DataFrame(data=data,index=index,columns=columns)</span><br><span class="line">df.plot(kind=<span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162757152?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.plot(kind=<span class="string">'barh'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162815107?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.plot(kind=<span class="string">'barh'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162834581?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>读取文件tips.csv，查看每天的聚会人数情况<br>每天各种聚会规模的比例  </p>
+<p>求和并df.sum()，注意灵活使用axis</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tips = pd.read_csv(<span class="string">'tips.csv'</span>)</span><br><span class="line">tips</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把一列变成索引</span></span><br><span class="line">data = tips.set_index(<span class="string">'day'</span>)</span><br><span class="line"><span class="comment"># 把索引变成列</span></span><br><span class="line"><span class="comment"># tips.reset_index()</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(kind=<span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162858589?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算每一行的和</span></span><br><span class="line">index_sum = data.sum(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算每天每种聚会人数所占比例</span></span><br><span class="line">result = data.div(index_sum,axis=<span class="number">0</span>)</span><br><span class="line">result.plot(kind=<span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162926626?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h2><p>rondom生成随机数百分比直方图，调用hist方法</p>
+<ul>
+<li>柱高表示数据的频数，柱宽表示各组数据的组距</li>
+<li>参数bins可以设置直方图方柱的个数上限，越大柱宽越小，数据分组越细致</li>
+<li>设置normed参数为True，可以把频数转换为概率</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = Series(data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">9</span>])</span><br><span class="line"><span class="comment"># 直方图会受到bins（数据分区的个数）影响很大</span></span><br><span class="line"><span class="comment"># 设置normed参数为True，直方图表示的是每一个数出现的概率</span></span><br><span class="line">s.plot(kind=<span class="string">'hist'</span>,bins=<span class="number">3</span>,normed=<span class="keyword">True</span>)</span><br><span class="line"><span class="comment"># 为了避免歧义，直方图会跟核密度估计函数一起使用</span></span><br><span class="line">s.plot(kind=<span class="string">'kde'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415162948510?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.plot(kind=<span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415163007100?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>kde图：核密度估计，用于弥补直方图由于参数bins设置的不合理导致的精度缺失问题</p>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>绘制一个由两个不同的标准正态分布组成的的双峰分布</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成两个一维数组，符合正太分布，期望值分别为0和20</span></span><br><span class="line">x1 = Series(np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">3</span>,size=<span class="number">100</span>))</span><br><span class="line">x2 = Series(np.random.normal(loc=<span class="number">20</span>,scale=<span class="number">5</span>,size=<span class="number">100</span>))</span><br><span class="line"><span class="comment"># 级联两个Series对象并重置索引</span></span><br><span class="line">s = pd.concat((x1,x2),ignore_index=<span class="keyword">True</span>)</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<pre><code>0       3.249873
+1      -2.589494
+2      -2.247292
+3      -2.127396
+4       0.521159
+5      -6.084171
+6       1.686359
+7      -2.565004
+8      -0.647332
+9       4.161788
+10     -2.924241
+11     -1.938118
+12      1.259324
+13      0.941385
+14     -4.316892
+15      0.085348
+16     -2.213873
+17     -0.809423
+18     -2.917220
+19     -2.672856
+20     -2.066799
+21      1.865616
+22     -1.852503
+23      3.604442
+24     -1.411063
+25      0.165386
+26     -1.337435
+27      3.754387
+28     -6.199200
+29      3.019002
+         ...    
+170    22.595197
+171    23.492841
+172    22.738205
+173    14.255180
+174    22.229389
+175    19.190084
+176    22.902848
+177    14.744843
+178    18.963592
+179    29.699166
+180    14.663104
+181    26.470372
+182    24.512165
+183    27.617378
+184    12.798938
+185    18.160538
+186    18.083601
+187    22.163000
+188    17.011587
+189    22.897459
+190    26.887293
+191    15.718268
+192    21.277874
+193    18.267735
+194    18.242399
+195    27.474724
+196    34.169240
+197    22.959591
+198    21.693334
+199    21.558861
+Length: 200, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.plot(kind=<span class="string">'hist'</span>,normed=<span class="keyword">True</span>)</span><br><span class="line">s.plot(kind=<span class="string">'kde'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415163032405?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="散布图"><a href="#散布图" class="headerlink" title="散布图"></a>散布图</h2><p>散布图<br>散布图是观察两个一维数据数列之间的关系的有效方法,DataFrame对象可用 </p>
+<p>使用方法：<br>设置kind = ‘scatter’，给明标签columns</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = np.random.normal(size=(<span class="number">1000</span>,<span class="number">4</span>))</span><br><span class="line">columns = list(<span class="string">'ABCD'</span>)</span><br><span class="line">df = DataFrame(data=data,columns=columns)</span><br><span class="line">df.plot(x=<span class="string">'A'</span>,y=<span class="string">'B'</span>,kind=<span class="string">'scatter'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415163051051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>散布图矩阵，当有多个点时，两两点的关系  </p>
+<p>使用函数：pd.plotting.scatter_matrix(),</p>
+<ul>
+<li>参数diagnol：设置对角线的图像类型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.plotting.scatter_matrix(df,diagonal=<span class="string">'kde'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x15A2BDF0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x156A1AF0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x155F4EB0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x13D37570&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x1562AED0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x1562AE90&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16EAA690&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16EF41F0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F17230&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F2CF70&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F51C70&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F799F0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F9F890&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16F22710&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x16FE28F0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x170068F0&gt;]],
+      dtype=object)
+</code></pre><p><img src="http://img.blog.csdn.net/20180415163116532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="数据加载"><a href="#数据加载" class="headerlink" title="数据加载"></a>数据加载</h2><h3 id="pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read-csv和read-table这两个使用最多"><a href="#pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read-csv和read-table这两个使用最多" class="headerlink" title="pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read_csv和read_table这两个使用最多"></a>pandas提供了一些用于将表格型数据读取为DataFrame对象的函数，期中read_csv和read_table这两个使用最多</h3><p>首先查看文本文件</p>
+<ul>
+<li><p>使用read_csv将其读入</p>
+</li>
+<li><p>使用read_table读取</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'data/type-.txt'</span>,sep=<span class="string">'-'</span>,header=<span class="keyword">None</span>)</span><br><span class="line">data.columns = [<span class="string">'汇源'</span>,<span class="string">'果汁'</span>,<span class="string">'鸟'</span>]</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">table = pd.read_table(<span class="string">'data/type_comma'</span>,sep=<span class="string">','</span>,header=<span class="keyword">None</span>)</span><br><span class="line">table</span><br></pre></td></tr></table></figure>
+<p>使用read_excel()读取excel表格</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">table = pd.read_excel(<span class="string">'data/students.xlsx'</span>,sheet_name=<span class="number">1</span>)</span><br><span class="line">table</span><br></pre></td></tr></table></figure>
+<p>写入excel文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table.to_excel(<span class="string">'dancer.xlsx'</span>)</span><br></pre></td></tr></table></figure>
+<p>读取sqlite文件</p>
+<p>导包  import sqlite3 as sqlite3</p>
+<ul>
+<li><p>连接数据库<br>  sqlite3.connect(‘dbpath’)</p>
+</li>
+<li><p>读取table内容<br>  pd.read_sql(“SQL语句”, con)</p>
+</li>
+<li><p>写入数据库文件<br>  df对象.to_sql(‘dbpath’,connection)</p>
+</li>
+<li><p>操作数据库<br>  connection.execute(SQL语句)</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sqlite3 <span class="keyword">as</span> sqlite3</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SQL server  MongoDB  Redis</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connection = sqlite3.connect(<span class="string">'data/weather_2012.sqlite'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_sql(<span class="string">'select * from weather_2012'</span>,connection)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table.to_sql(<span class="string">'dancer'</span>,connection)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_sql(<span class="string">'select * from dancer'</span>,connection)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># drop table dancer</span></span><br><span class="line">connection.execute(<span class="string">'drop table dancer'</span>)&lt;sqlite3.Cursor at <span class="number">0x130953e0</span>&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_sql(<span class="string">'select * from dancer'</span>,connection)</span><br></pre></td></tr></table></figure>
+<pre><code>--------------------------------------------------------------------------
+</code></pre><p>设置行索引index_col</p>
+<p>写入sql文件</p>
+<p>使用read_csv读取url获取网络上的数据<br>url = ‘<a href="https://raw.githubusercontent.com/datasets/investor-flow-of-funds-us/master/data/weekly.csv&#39;" target="_blank" rel="noopener">https://raw.githubusercontent.com/datasets/investor-flow-of-funds-us/master/data/weekly.csv&#39;</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'https://raw.githubusercontent.com/datasets/investor-flow-of-funds-us/master/data/weekly.csv'</span></span><br><span class="line"></span><br><span class="line">pd.read_csv(url)</span><br></pre></td></tr></table></figure>
+<h2 id="透视表和交叉表"><a href="#透视表和交叉表" class="headerlink" title="透视表和交叉表"></a>透视表和交叉表</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># df = DataFrame(&#123;'sex':['man','man','women','women','man','women','man','women','women'],</span></span><br><span class="line"><span class="comment">#                'age':[15,23,25,17,35,57,24,31,22],</span></span><br><span class="line"><span class="comment">#                'smoke':[True,False,False,True,True,False,False,True,False],</span></span><br><span class="line"><span class="comment">#                'height':[168,179,181,166,173,178,188,190,160]&#125;)</span></span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">'foo'</span>: [<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'two'</span>,<span class="string">'two'</span>],</span><br><span class="line">                       <span class="string">'bar'</span>: [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>],</span><br><span class="line">                       <span class="string">'baz'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.pivot_table(index=<span class="string">'smoke'</span>,columns=<span class="string">'sex'</span>,aggfunc=max)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.pivot(index=<span class="string">'bar'</span>,columns=<span class="string">'foo'</span>,values=<span class="string">'baz'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="透视表"><a href="#透视表" class="headerlink" title="透视表"></a>透视表</h3><p>各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中</p>
+<p>行分组透视表 设置index参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.pivot(index=<span class="string">'sex'</span>,columns=)</span><br></pre></td></tr></table></figure>
+<p>列分组透视表 设置columns参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> pivot_table</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df = DataFrame(&#123;<span class="string">'sex'</span>:[<span class="string">'man'</span>,<span class="string">'man'</span>,<span class="string">'women'</span>,<span class="string">'women'</span>,<span class="string">'man'</span>,<span class="string">'women'</span>,<span class="string">'man'</span>,<span class="string">'women'</span>,<span class="string">'women'</span>],</span><br><span class="line">               <span class="string">'age'</span>:[<span class="number">15</span>,<span class="number">23</span>,<span class="number">25</span>,<span class="number">17</span>,<span class="number">35</span>,<span class="number">57</span>,<span class="number">24</span>,<span class="number">31</span>,<span class="number">22</span>],</span><br><span class="line">               <span class="string">'smoke'</span>:[<span class="keyword">True</span>,<span class="keyword">False</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">False</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">False</span>],</span><br><span class="line">               <span class="string">'height'</span>:[<span class="number">168</span>,<span class="number">179</span>,<span class="number">181</span>,<span class="number">166</span>,<span class="number">173</span>,<span class="number">178</span>,<span class="number">188</span>,<span class="number">190</span>,<span class="number">160</span>]&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pivot_table(df,values=<span class="string">'age'</span>,index=[<span class="string">'sex'</span>],columns=[<span class="string">'smoke'</span>],aggfunc=<span class="string">'min'</span>)</span><br></pre></td></tr></table></figure>
+<p>行列分组的透视表  同时设定index、columns参数</p>
+<p>aggfunc：设置应用在每个区域的聚合函数，默认值为np.mean</p>
+<p>fill_value：替换结果中的缺失值</p>
+<h3 id="交叉表"><a href="#交叉表" class="headerlink" title="交叉表"></a>交叉表</h3><p>是一种用于计算分组频率的特殊透视图,对数据进行汇总</p>
+<p>pd.crosstab(index,colums)</p>
+<ul>
+<li>index:分组数据，交叉表的行索引</li>
+<li>columns:交叉表的列索引</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="string">"foo"</span>, <span class="string">"foo"</span>, <span class="string">"foo"</span>, <span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"bar"</span>,<span class="string">"bar"</span>, <span class="string">"bar"</span>, <span class="string">"foo"</span>, <span class="string">"foo"</span>, <span class="string">"foo"</span>], dtype=object)</span><br><span class="line">b = np.array([<span class="string">"one"</span>, <span class="string">"one"</span>, <span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"one"</span>, <span class="string">"one"</span>,<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"two"</span>, <span class="string">"two"</span>, <span class="string">"one"</span>], dtype=object)</span><br><span class="line">c = np.array([<span class="string">"dull"</span>, <span class="string">"dull"</span>, <span class="string">"shiny"</span>, <span class="string">"dull"</span>, <span class="string">"dull"</span>, <span class="string">"shiny"</span>,<span class="string">"shiny"</span>, <span class="string">"dull"</span>, <span class="string">"shiny"</span>, <span class="string">"shiny"</span>, <span class="string">"shiny"</span>],dtype=object)</span><br><span class="line">pd.crosstab(a, [b, c], rownames=[<span class="string">'a'</span>], colnames=[<span class="string">'b'</span>, <span class="string">'c'</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table = pd.read_csv(<span class="string">'stock2015-2016.csv'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 'AAPL', 'MSFT', 'GE', 'IBM', 'AA', 'DAL', 'UAL', 'PEP', 'KO'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table[<span class="string">'Ticker'</span>].unique()</span><br></pre></td></tr></table></figure>
+<pre><code>array([&apos;AAPL&apos;, &apos;MSFT&apos;, &apos;GE&apos;, &apos;IBM&apos;, &apos;AA&apos;, &apos;DAL&apos;, &apos;UAL&apos;, &apos;PEP&apos;, &apos;KO&apos;],
+      dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">按照每天查看苹果股票的收盘价格</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adj_table = table.pivot(index=<span class="string">'Date'</span>,columns=<span class="string">'Ticker'</span>,values=<span class="string">'Adj Close'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">adj_table.plot()</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415164318157?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adj_table[<span class="string">'AAPL'</span>].plot()</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20180415164336700?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcHJhaXJpZTk3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adj_table.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table.groupby([<span class="string">'Ticker'</span>,<span class="string">'Date'</span>])[<span class="string">'Adj Close'</span>].mean().unstack(level=<span class="number">0</span>).head()</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/yuansuixin/learn-data-analysis" title="下载" target="_blank" rel="noopener">相关数据及源码下载</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/10/22/proxy/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/09/07/wrapper/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kerry's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        cyss428@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/03/">三月 2015<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2015&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Kerry
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
