@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            机器学习----K均值算法（K-means）聚类 | 
+        
+        Kerry
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?yLCpShWWLLMEALkrueHy8A==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kerry">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/08/18/k-means/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kerry">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://yuansuixin.github.io/2017/08/18/k-means/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="机器学习----K均值算法（K-means）聚类 | Kerry">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Fri Aug 18 2017 17:31:50 GMT+0800">
+        <meta property="article:modified_time" content="Wed Apr 18 2018 17:33:53 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://yuansuixin.github.io/2017/08/18/k-means/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2017/08/18/k-means/index.html",
+    "headline": "机器学习----K均值算法（K-means）聚类",
+    "datePublished": "Fri Aug 18 2017 17:31:50 GMT+0800",
+    "dateModified": "Wed Apr 18 2018 17:33:53 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kerry",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kerry",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#K均值算法（K-means）聚类"><span class="post-toc-number">1.</span> <span class="post-toc-text">K均值算法（K-means）聚类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【关键词】K个种子，均值"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">【关键词】K个种子，均值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、K-means算法原理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">一、K-means算法原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#K-Means主要最重大的缺陷——都和初始值有关："><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">K-Means主要最重大的缺陷——都和初始值有关：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结：K-Means算法步骤："><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">总结：K-Means算法步骤：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#K-Means算法应用"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">K-Means算法应用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、实战"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">二、实战</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、聚类实例"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">1、聚类实例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实战，三问中国足球几多愁？"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">实战，三问中国足球几多愁？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、聚类实践与常见错误"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">2、聚类实践与常见错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">三、</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、分析ex7data2-mat文件"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">1、分析ex7data2.mat文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、图片压缩"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">2、图片压缩</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                机器学习----K均值算法（K-means）聚类
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kerry</strong>
+        <span>8月 18, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=机器学习----K均值算法（K-means）聚类&url=https://yuansuixin.github.io/2017/08/18/k-means/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=机器学习----K均值算法（K-means）聚类&url=https://yuansuixin.github.io/2017/08/18/k-means/index.html&via=kerry" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/08/18/k-means/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/08/18/k-means/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="K均值算法（K-means）聚类"><a href="#K均值算法（K-means）聚类" class="headerlink" title="K均值算法（K-means）聚类"></a>K均值算法（K-means）聚类</h1><h2 id="【关键词】K个种子，均值"><a href="#【关键词】K个种子，均值" class="headerlink" title="【关键词】K个种子，均值"></a>【关键词】K个种子，均值</h2><h2 id="一、K-means算法原理"><a href="#一、K-means算法原理" class="headerlink" title="一、K-means算法原理"></a>一、K-means算法原理</h2><h3 id="聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。"><a href="#聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。" class="headerlink" title="聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。"></a>聚类的概念：一种无监督的学习，事先不知道类别，自动将相似的对象归到同一个簇中。</h3><p>K-Means算法是一种聚类分析（cluster analysis）的算法，其主要是来计算数据聚集的算法，主要通过不断地取离种子点最近均值的算法。</p>
+<p>K-Means算法主要解决的问题如下图所示。我们可以看到，在图的左边有一些点，我们用肉眼可以看出来有四个点群，但是我们怎么通过计算机程序找出这几个点群来呢？于是就出现了我们的K-Means算法<br><img src="https://img-blog.csdn.net/20180418171541953?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="1"><br>这个算法其实很简单，如下图所示：</p>
+<p><img src="https://img-blog.csdn.net/20180418171552470?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="2"></p>
+<p>从上图中，我们可以看到，A，B，C，D，E是五个在图中点。而灰色的点是我们的种子点，也就是我们用来找点群的点。有两个种子点，所以K=2。</p>
+<p>然后，K-Means的算法如下：</p>
+<ol>
+<li>随机在图中取K（这里K=2）个种子点。</li>
+<li>然后对图中的所有点求到这K个种子点的距离，假如点Pi离种子点Si最近，那么Pi属于Si点群。（上图中，我们可以看到A，B属于上面的种子点，C，D，E属于下面中部的种子点）</li>
+<li>接下来，我们要移动种子点到属于他的“点群”的中心。（见图上的第三步）</li>
+<li>然后重复第2）和第3）步，直到，种子点没有移动（我们可以看到图中的第四步上面的种子点聚合了A，B，C，下面的种子点聚合了D，E）。</li>
+</ol>
+<p>这个算法很简单，重点说一下“求点群中心的算法”：欧氏距离（Euclidean Distance）：差的平方和的平方根<br><img src="https://img-blog.csdn.net/20180418171601366?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="3"></p>
+<h3 id="K-Means主要最重大的缺陷——都和初始值有关："><a href="#K-Means主要最重大的缺陷——都和初始值有关：" class="headerlink" title="K-Means主要最重大的缺陷——都和初始值有关："></a>K-Means主要最重大的缺陷——都和初始值有关：</h3><p>K是事先给定的，这个K值的选定是非常难以估计的。很多时候，事先并不知道给定的数据集应该分成多少个类别才最合适。（ISODATA算法通过类的自动合并和分裂，得到较为合理的类型数目K）</p>
+<p>K-Means算法需要用初始随机种子点来搞，这个随机种子点太重要，不同的随机种子点会有得到完全不同的结果。（K-Means++算法可以用来解决这个问题，其可以有效地选择初始点）</p>
+<h3 id="总结：K-Means算法步骤："><a href="#总结：K-Means算法步骤：" class="headerlink" title="总结：K-Means算法步骤："></a>总结：K-Means算法步骤：</h3><ol>
+<li>从数据中选择k个对象作为初始聚类中心;</li>
+<li>计算每个聚类对象到聚类中心的距离来划分；</li>
+<li>再次计算每个聚类中心</li>
+<li>计算标准测度函数，直到达到最大迭代次数，则停止，否则，继续操作。</li>
+<li>确定最优的聚类中心</li>
+</ol>
+<h3 id="K-Means算法应用"><a href="#K-Means算法应用" class="headerlink" title="K-Means算法应用"></a>K-Means算法应用</h3><p>看到这里，你会说，K-Means算法看来很简单，而且好像就是在玩坐标点，没什么真实用处。而且，这个算法缺陷很多，还不如人工呢。是的，前面的例子只是玩二维坐标点，的确没什么意思。但是你想一下下面的几个问题：</p>
+<p>1）如果不是二维的，是多维的，如5维的，那么，就只能用计算机来计算了。</p>
+<p>2）二维坐标点的X，Y 坐标，其实是一种向量，是一种数学抽象。现实世界中很多属性是可以抽象成向量的，比如，我们的年龄，我们的喜好，我们的商品，等等，能抽象成向量的目的就是可以让计算机知道某两个属性间的距离。如：我们认为，18岁的人离24岁的人的距离要比离12岁的距离要近，鞋子这个商品离衣服这个商品的距离要比电脑要近，等等。</p>
+<h2 id="二、实战"><a href="#二、实战" class="headerlink" title="二、实战"></a>二、实战</h2><p>重要参数：</p>
+<ul>
+<li>n_clusters：聚类的个数</li>
+</ul>
+<p>重要属性：</p>
+<ul>
+<li>cluster_centers_ : [n_clusters, n_features]的数组，表示聚类中心点的坐标</li>
+<li>labels_ : 每个样本点的标签</li>
+</ul>
+<h3 id="1、聚类实例"><a href="#1、聚类实例" class="headerlink" title="1、聚类实例"></a>1、聚类实例</h3><p>导包，使用make_blobs生成随机点cluster_std</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samples,target = make_blobs(n_samples=<span class="number">100</span>,n_features=<span class="number">2</span>,centers=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418171814697?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418171829698?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>建立模型,训练数据，并进行数据预测，使用相同数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line"></span><br><span class="line">kmean = KMeans(n_clusters=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">kmean.fit(samples)</span><br></pre></td></tr></table></figure>
+<pre><code>KMeans(algorithm=&apos;auto&apos;, copy_x=True, init=&apos;k-means++&apos;, max_iter=300,
+    n_clusters=2, n_init=10, n_jobs=1, precompute_distances=&apos;auto&apos;,
+    random_state=None, tol=0.0001, verbose=0)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_ = kmean.predict(samples)</span><br></pre></td></tr></table></figure>
+<p>绘制图形，显示聚类结果kmeans.cluster_centers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=y_)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418171913128?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">centers = kmean.cluster_centers_</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=y_)</span><br><span class="line">plt.scatter(centers[:,<span class="number">0</span>],centers[:,<span class="number">1</span>],c=<span class="string">'red'</span>,s=<span class="number">40</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418171925714?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 聚类 无监督学习</span></span><br><span class="line"><span class="comment"># 分类 有监督学习</span></span><br><span class="line"><span class="comment"># K-mean - KNN</span></span><br><span class="line"><span class="comment"># 欧式距离求距离</span></span><br></pre></td></tr></table></figure>
+<h3 id="实战，三问中国足球几多愁？"><a href="#实战，三问中国足球几多愁？" class="headerlink" title="实战，三问中国足球几多愁？"></a>实战，三问中国足球几多愁？</h3><p>导包，3D图像需导包：</p>
+<p>from mpl_toolkits.mplot3d import Axes3D</p>
+<p>读取数据AsiaZoo.txt</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br><span class="line"></span><br><span class="line">data = pd.read_csv(<span class="string">'../data/AsiaZoo.txt'</span>,header=<span class="keyword">None</span>)</span><br><span class="line">data.columns=[<span class="string">"国家"</span>,<span class="string">"2006世界杯"</span>,<span class="string">"2010世界杯"</span>,<span class="string">"2007亚洲杯"</span>]</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samples = data[[<span class="string">"2006世界杯"</span>,<span class="string">"2010世界杯"</span>,<span class="string">"2007亚洲杯"</span>]]</span><br><span class="line">samples</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># kmean.fit(samples)</span></span><br><span class="line"><span class="comment"># kmean.predict(samples)</span></span><br><span class="line">y_ = kmean.fit_predict(samples)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 1, 1, 2, 2, 0, 0, 0, 2, 0, 0, 0, 2, 2, 0])
+</code></pre><p>列名修改为：”国家”,”2006世界杯”,”2010世界杯”,”2007亚洲杯”</p>
+<p>使用K-Means进行数据处理，对亚洲球队进行分组，分三组</p>
+<p>for循环打印输出分组后的球队，每一组球队打印一行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">countrys = data[<span class="string">'国家'</span>]</span><br><span class="line">countrys</span><br></pre></td></tr></table></figure>
+<pre><code>0         中国
+1         日本
+2         韩国
+3         伊朗
+4         沙特
+5        伊拉克
+6        卡塔尔
+7        阿联酋
+8     乌兹别克斯坦
+9         泰国
+10        越南
+11        阿曼
+12        巴林
+13        朝鲜
+14        印尼
+Name: 国家, dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    items = countrys[y_ == i]</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">        print(item,end=<span class="string">' '</span>)</span><br><span class="line">    print(<span class="string">'\n'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>中国 伊拉克 卡塔尔 阿联酋 泰国 越南 阿曼 印尼 
+
+日本 韩国 
+
+伊朗 沙特 乌兹别克斯坦 巴林 朝鲜 
+</code></pre><p>​<br>绘制三维立体图形</p>
+<ul>
+<li>ax = plt.subplot(projection  = ‘3d’)  </li>
+<li>ax.scatter3D()</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">8</span>))</span><br><span class="line">ax = plt.subplot(projection=<span class="string">'3d'</span>)</span><br><span class="line"></span><br><span class="line">ax.scatter3D(samples[<span class="string">'2006世界杯'</span>],samples[<span class="string">'2010世界杯'</span>],samples[<span class="string">'2007亚洲杯'</span>],alpha=<span class="number">1</span>,s=<span class="number">100</span>,marker=<span class="string">'h'</span>,c=y_)</span><br><span class="line">ax.set_xlabel(<span class="string">"2006-World-Cup"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"2010-World-Cup"</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">"2007-Asia-Cup"</span>)</span><br><span class="line"></span><br><span class="line">centers = kmean.cluster_centers_</span><br><span class="line"><span class="comment"># ax.scatter3D(centers[:,0],centers[:,1],centers[:,2],c='red',s=150,alpha=1)</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172040427?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>绘制聚类点</p>
+<h3 id="2、聚类实践与常见错误"><a href="#2、聚类实践与常见错误" class="headerlink" title="2、聚类实践与常见错误"></a>2、聚类实践与常见错误</h3><p>导包，使用make_blobs创建样本点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samples,target = make_blobs(n_samples=<span class="number">150</span>,n_features=<span class="number">2</span>,centers=<span class="number">3</span>,random_state=<span class="number">1</span>)</span><br><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172053857?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>第一种错误，k值不合适，make_blobs默认中心点三个</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">4</span>)</span><br><span class="line">y_ = kmean.fit_predict(samples)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">axes1 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">axes1.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br><span class="line">axes1.set_title(<span class="string">'True'</span>)</span><br><span class="line"></span><br><span class="line">axes2 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">axes2.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=y_)</span><br><span class="line">axes2.set_title(<span class="string">'Predict'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Text(0.5,1,&apos;Predict&apos;)
+</code></pre><p><img src="https://img-blog.csdn.net/20180418172110665?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kmean.labels_</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0,
+       0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1,
+       1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1,
+       1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1,
+       1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1,
+       1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1])
+</code></pre><p>第二种错误,数据偏差<br>trans = [[0.6,-0.6],[-0.4,0.8]]<br>X2 = np.dot(X,trans)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samples1,target1 = make_blobs(n_samples=<span class="number">150</span>,n_features=<span class="number">2</span>,centers=<span class="number">3</span>,random_state=<span class="number">5</span>)</span><br><span class="line">plt.scatter(samples1[:,<span class="number">0</span>],samples1[:,<span class="number">1</span>],c=target1)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/2018041817212823?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">trans = [[<span class="number">0.6</span>,<span class="number">-0.6</span>],[<span class="number">-0.4</span>,<span class="number">0.8</span>]]</span><br><span class="line">samples = np.dot(samples1,trans)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172141121?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">3</span>)</span><br><span class="line">y_ = kmean.fit_predict(samples)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">axes1 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">axes1.scatter(samples1[:,<span class="number">0</span>],samples1[:,<span class="number">1</span>],c=y_)</span><br><span class="line">axes1.set_title(<span class="string">'Predict'</span>)</span><br><span class="line"></span><br><span class="line">axes2 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">axes2.scatter(samples1[:,<span class="number">0</span>],samples1[:,<span class="number">1</span>],c=target1)</span><br><span class="line">axes2.set_title(<span class="string">'True'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Text(0.5,1,&apos;True&apos;)
+</code></pre><p><img src="https://img-blog.csdn.net/20180418172157363?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>第三个错误:标准偏差不相同cluster_std</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samples,target = make_blobs(n_samples=<span class="number">150</span>,n_features=<span class="number">2</span>,centers=<span class="number">3</span>,cluster_std=[<span class="number">0.5</span>,<span class="number">1</span>,<span class="number">3</span>])</span><br><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172211289?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">3</span>)</span><br><span class="line">y_ = kmean.fit_predict(samples)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">axes1 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">axes1.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br><span class="line">axes1.set_title(<span class="string">'True'</span>)</span><br><span class="line"></span><br><span class="line">axes2 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">axes2.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=y_)</span><br><span class="line">axes2.set_title(<span class="string">'Predict'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Text(0.5,1,&apos;Predict&apos;)
+</code></pre><p><img src="https://img-blog.csdn.net/20180418172225687?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>第四个错误：样本数量不同</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samples,target = make_blobs(n_samples=<span class="number">1500</span>,n_features=<span class="number">2</span>,centers=<span class="number">3</span>,random_state=<span class="number">0</span>)</span><br><span class="line">plt.scatter(samples[:,<span class="number">0</span>],samples[:,<span class="number">1</span>],c=target)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172242430?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">train1 = samples[target==<span class="number">0</span>][:<span class="number">10</span>]</span><br><span class="line">train2 = samples[target==<span class="number">1</span>][:<span class="number">150</span>]</span><br><span class="line">train3 = samples[target==<span class="number">2</span>][:<span class="number">500</span>]</span><br><span class="line"></span><br><span class="line">train = np.concatenate((train1,train2,train3))</span><br><span class="line">label = [<span class="number">0</span>]*<span class="number">10</span> + [<span class="number">1</span>]*<span class="number">150</span> + [<span class="number">2</span>]*<span class="number">500</span></span><br><span class="line"></span><br><span class="line">plt.scatter(train[:,<span class="number">0</span>],train[:,<span class="number">1</span>],c=label)</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://img-blog.csdn.net/20180418172256879?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">3</span>)</span><br><span class="line">y_ = kmean.fit_predict(train)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">axes1 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">axes1.scatter(train[:,<span class="number">0</span>],train[:,<span class="number">1</span>],c=label)</span><br><span class="line">axes1.set_title(<span class="string">'True'</span>)</span><br><span class="line"></span><br><span class="line">axes2 = plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">axes2.scatter(train[:,<span class="number">0</span>],train[:,<span class="number">1</span>],c=y_)</span><br><span class="line">axes2.set_title(<span class="string">'Predict'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Text(0.5,1,&apos;Predict&apos;)
+</code></pre><p><img src="https://img-blog.csdn.net/20180418172310711?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="三、"><a href="#三、" class="headerlink" title="三、"></a>三、</h2><h3 id="1、分析ex7data2-mat文件"><a href="#1、分析ex7data2-mat文件" class="headerlink" title="1、分析ex7data2.mat文件"></a>1、分析ex7data2.mat文件</h3><p>找出最佳聚类数目，并画出聚类的中心点</p>
+<p><code>from scipy.io import loadmat
+from sklearn.cluster import KMeans
+data = loadmat(&#39;../data/ex7data2.mat&#39;)
+X = data[&#39;X&#39;]
+X.shape</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.io <span class="keyword">import</span> loadmat</span><br><span class="line"></span><br><span class="line">data = loadmat(<span class="string">'../data/ex7data2.mat'</span>)[<span class="string">'X'</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(data[:,<span class="number">0</span>],data[:,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172325436?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">3</span>)</span><br><span class="line">y_ = kmean.fit_predict(data)</span><br><span class="line"></span><br><span class="line">plt.scatter(data[:,<span class="number">0</span>],data[:,<span class="number">1</span>],c=y_)</span><br><span class="line">centers = kmean.cluster_centers_</span><br><span class="line">plt.scatter(centers[:,<span class="number">0</span>],centers[:,<span class="number">1</span>],c=<span class="string">'red'</span>,s=<span class="number">50</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172342694?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h3 id="2、图片压缩"><a href="#2、图片压缩" class="headerlink" title="2、图片压缩"></a>2、图片压缩</h3><p>使用聚类压缩图片</p>
+<p><code>img = plt.imread(&#39;../data/bird_small.png&#39;)
+img_shape = img.shape
+img_shape</code></p>
+<ul>
+<li>核心思想：把图片颜色数据聚类分析成N个类别，用中心点颜色替换其他颜色</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">girl = plt.imread(<span class="string">'meizi.jpg'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = girl.reshape(<span class="number">-1</span>,<span class="number">3</span>)/<span class="number">255.0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0.75294118, 0.77254902, 0.78431373],
+       [0.75686275, 0.77647059, 0.78823529],
+       [0.76078431, 0.78039216, 0.79215686],
+       ...,
+       [0.49411765, 0.45882353, 0.43921569],
+       [0.49411765, 0.45882353, 0.43921569],
+       [0.49019608, 0.45490196, 0.43529412]]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kmean = KMeans(n_clusters=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">kmean.fit_predict(data)</span><br></pre></td></tr></table></figure>
+<pre><code>array([1, 4, 4, ..., 3, 3, 3])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">colors = kmean.cluster_centers_</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">colors</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0.97098806, 0.97478961, 0.97778226],
+       [0.74193731, 0.67788276, 0.65664508],
+       [0.28508069, 0.2517683 , 0.30811107],
+       [0.57589379, 0.50164084, 0.49412421],
+       [0.8664354 , 0.86114772, 0.86019593]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.imshow(colors[kmean.labels_].reshape(girl.shape))</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/20180418172401892?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ByYWlyaWU5Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p><a href="https://github.com/yuansuixin/ML-K-Means" title="下载源码" target="_blank" rel="noopener">下载源码</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/09/07/wrapper/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/06/02/reflection2/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kerry's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        cyss428@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/06/">六月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">五月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/03/">三月 2015<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2015&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Kerry
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
