@@ -1,6 +1,6 @@
 ---
 title: Java中的IO流总结（1）
-date: 2018-07-15 15:52:34
+date: 2017-07-15 15:52:34
 tags:
 ---
 
@@ -42,7 +42,7 @@ File类是++不对称++的。说它不对 称，意思是虽然存在允许验�
 - boolean canWrite() 
 - boolean canRead()
 - boolean isFile()
--boolean isDirectory()
+  -boolean isDirectory()
 - File[ ] listFiles()
 
 **路径分隔符**
@@ -51,7 +51,6 @@ Windows里面的\表示转义，在程序中需要使用双反斜杠\,或者是�
 
 
 #### 流类
-
 
 ---
 
@@ -136,7 +135,7 @@ Java 2 定义了两种类型的流：
 - FileInputStream和FileOutputStream 节点流，用于从文件中读取或往文件中写入字节流。如果在构造 FileOutputStream时，文件已经存在，则覆盖这个文件。
 - BufferedInputStream和 BufferedOutputStream 过滤流，需要使用已经存在的节点流来构造，提供带缓冲的读写，提高了读写的效率。
 - DataInputStream和DataOutputStream 过滤流，需要使用已经存在的节点流来构造，提供了读写Java中的基本数 据类型的功能。 
--  PipedInputStream和PipedOutputStream 管道流，用于线程间的通信。一个线程的PipedInputStream对象 从另一个线程的PipedOutputStream对象读取输入。要使管道流有 用，必须同时构造管道输入流和管道输出流。
+- PipedInputStream和PipedOutputStream 管道流，用于线程间的通信。一个线程的PipedInputStream对象 从另一个线程的PipedOutputStream对象读取输入。要使管道流有 用，必须同时构造管道输入流和管道输出流。
 
 
 java的IO库的设计原则是利用的装饰设计模式，前面我介绍过了。
@@ -152,10 +151,10 @@ java的IO库的设计原则是利用的装饰设计模式，前面我介绍过�
 
 
 System.out是标准的输出流。默认情况下，它是一 个控制台。System.in是标准输入，默认情况下， 它指的是键盘。System.err指的是标准错误流，它 默认是控制台。然而，这些流可以重定向到任何 兼容的输入/输出设备 • System.in 是InputStream的对象；System.out和 System.err是PrintStream的对象。它们都是字节流， 尽管它们用来读写外设的字符。如果愿意，你可 以用基于字符的流来包装它们
- 
+
 • System类的类变量in表示标准输入流，其 定义为：
 - public static final InputStream in 
--  标准输入流已打开，作好提供输入数据的 准备。一般这个流对应键盘输入，可以使 用InputStream 类的read()和skip(long n)等方法来从输入流获得数据。read()从 输入流中读一个字节，skip(long n)在输 入流中跳过n个字节。
+- 标准输入流已打开，作好提供输入数据的 准备。一般这个流对应键盘输入，可以使 用InputStream 类的read()和skip(long n)等方法来从输入流获得数据。read()从 输入流中读一个字节，skip(long n)在输 入流中跳过n个字节。
 
 System类的类变量out表示标准输出流，其定义 为：
 - public static final PrintStream out
