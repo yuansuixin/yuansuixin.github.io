@@ -239,7 +239,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 11 2018 23:41:52 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 21 2018 23:43:29 GMT+0800">
+        <meta property="article:modified_time" content="Sat Apr 21 2018 23:52:44 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -262,7 +262,7 @@
     "mainEntityOfPage": "https://yuansuixin.github.io/2018/03/11/rest-framework-parsers/index.html",
     "headline": "rest-framework源码解析和自定义组件----解析器",
     "datePublished": "Sun Mar 11 2018 23:41:52 GMT+0800",
-    "dateModified": "Sat Apr 21 2018 23:43:29 GMT+0800",
+    "dateModified": "Sat Apr 21 2018 23:52:44 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "kerry",
@@ -485,7 +485,7 @@
 <li><p>Django的请求体解析：request.POST/ request.body</p>
 <ol>
 <li>请求头的要求：如果请求头中的<code>Content-Type: application/x-www-form-urlencoded</code>，  PS: 如果请求头中的 <code>Content-Type: application/x-www-form-urlencoded</code>，request.POST中才有值（去request.body中解析数据）。</li>
-<li><p>数据格式要求：<code>name=alex&amp;age=18&amp;gender=男</code><br>如：</p>
+<li><p>数据格式要求：<code>name=alex&amp;age=18&amp;gender=男</code><br> 如：</p>
 <ul>
 <li>form表单提交，<code>&lt;form method=...&gt;&lt;/form&gt;</code>,默认的格式就是要求的那种格式</li>
 <li>ajax提交, </li>
@@ -519,13 +519,15 @@
 </li>
 <li><p>源码流程</p>
 <ul>
-<li>匹配到url，然后到view视图里，执行父类的as_view()方法，该方法返回一个view函数，而在view（）函数里返回的是dispatch（）方法，我们就从dispatch()方法开始</li>
+<li><p>匹配到url，然后到view视图里，执行父类的as_view()方法，该方法返回一个view函数，而在view（）函数里返回的是dispatch（）方法，我们就从dispatch()方法开始</p>
+<ul>
 <li>先封装request，执行initialize_request()对request进行加工，其中封装了一个get_parsers（），就是将解释器封装到了request里，这个方法返回的是对象列表。</li>
 <li>这个对象列表默认是通过配置里的设置拿到的，当然也可以在视图里写入parser_classes这个列表</li>
 <li>这样将解释器封装到了request里面</li>
 <li>然后，请求的时候，从url匹配到视图，视图里如果使用到了request的相关的内容，以request.data为例，使用到的时候，才触发解释器，</li>
 <li>源码中就会到达request类中的data（），因为data（）是由装饰器property修饰，所以调用的时候不需要加括号，data（）里调用了_load_data_and_files（），这面通过_parse（）方法拿到的值，</li>
-<li><p>在_parse（）中，可以获取到用户提交的请求头self.content-type,然后<br><img src="index_files/778990015.png" alt=""></p>
+<li><p>在_parse（）中，可以获取到用户提交的请求头self.content-type,然后</p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018421235221.png" alt="Untitled-1-2018421235221"></p>
 </li>
 <li><p>选择好解析器之后，就到了对应的解析器里面的parser()方法对数据进行解析</p>
 </li>
@@ -534,6 +536,9 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<p><a href="https://github.com/yuansuixin/Rest-Framework-Parsers" title="源代码下载" target="_blank" rel="noopener">解释器相关源代码下载</a></p>
 
         
     
