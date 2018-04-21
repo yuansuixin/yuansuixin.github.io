@@ -1,5 +1,5 @@
 ---
-title: Rest Framework的源码分析----用户登录认证
+title: Rest Framework的源码分析及自定义组件----用户登录认证
 date: 2017-03-20 11:36:09
 tags:
 ---
@@ -290,12 +290,7 @@ REST_FRAMEWORK = {
 
 
 
-
-
-
-
-
-
+[用户登录认证详细代码下载](https://github.com/yuansuixin/Rest-Framework-Auth/ "用户登录认证详细代码下载")
 
 
 

@@ -1,5 +1,5 @@
 ---
-title: Rest Framework框架源码分析----权限
+title: Rest Framework框架源码分析及自定义组件----权限
 date: 2017-09-20 11:29:28
 tags:
 ---
@@ -121,7 +121,7 @@ REST_FRAMEWORK = {
 - 源码流程
 
 
-
+[权限相关代码下载](https://github.com/yuansuixin/Rest-Framework-Permission "权限相关代码下载")
 
 
 

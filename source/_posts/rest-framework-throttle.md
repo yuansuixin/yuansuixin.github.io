@@ -1,5 +1,5 @@
 ---
-title: Django的Rest-Framework框架源码解析----访问频率控制（节流）
+title: Django的Rest-Framework框架源码解析及自定义组件----访问频率控制（节流）
 date: 2018-01-19 22:48:46
 tags:
 ---
