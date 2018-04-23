@@ -43,7 +43,7 @@
     
     <title>
         
-            Java中的IO流总结（1） | 
+            Rest-Framework源码解析和自定义组件----序列化 | 
         
         Kerry
     </title>
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Kerry">
-    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/07/15/java-io/">
+    <meta name="msapplication-starturl" content="https://yuansuixin.github.io/2017/11/23/rest-serializer/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Kerry">
@@ -230,16 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://yuansuixin.github.io/2017/07/15/java-io/">
+    <meta property="og:url" content="https://yuansuixin.github.io/2017/11/23/rest-serializer/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Java中的IO流总结（1） | Kerry">
+    <meta property="og:title" content="Rest-Framework源码解析和自定义组件----序列化 | Kerry">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
     
-        <meta property="article:published_time" content="Sat Jul 15 2017 15:52:34 GMT+0800">
-        <meta property="article:modified_time" content="Fri Apr 20 2018 11:30:21 GMT+0800">
+        <meta property="article:published_time" content="Thu Nov 23 2017 22:18:23 GMT+0800">
+        <meta property="article:modified_time" content="Mon Apr 23 2018 22:20:29 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -247,7 +247,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://yuansuixin.github.io/2017/07/15/java-io/index.html" />
+        <link rel="canonical" href="https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -259,10 +259,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "https://yuansuixin.github.io/2017/07/15/java-io/index.html",
-    "headline": "Java中的IO流总结（1）",
-    "datePublished": "Sat Jul 15 2017 15:52:34 GMT+0800",
-    "dateModified": "Fri Apr 20 2018 11:30:21 GMT+0800",
+    "mainEntityOfPage": "https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html",
+    "headline": "Rest-Framework源码解析和自定义组件----序列化",
+    "datePublished": "Thu Nov 23 2017 22:18:23 GMT+0800",
+    "dateModified": "Mon Apr 23 2018 22:20:29 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "kerry",
@@ -346,7 +346,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#File类"><span class="post-toc-number">1.</span> <span class="post-toc-text">File类</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#流类"><span class="post-toc-number">2.</span> <span class="post-toc-text">流类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#流的分类"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">流的分类</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#字节流"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">字节流</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#过滤流"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">过滤流</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#基本的流类"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">基本的流类</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#预定义流"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">预定义流</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#序列化"><span class="post-toc-number">1.</span> <span class="post-toc-text">序列化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#序列化数据"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">序列化数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#实例化"><span class="post-toc-number">1.0.1.0.0.1.</span> <span class="post-toc-text">实例化</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#序列化-1"><span class="post-toc-number">1.0.1.0.0.2.</span> <span class="post-toc-text">序列化</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#请求数据校验"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">请求数据校验</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -378,7 +378,7 @@
         
     
             <p class="article-headline-p">
-                Java中的IO流总结（1）
+                Rest-Framework源码解析和自定义组件----序列化
             </p>
         </div>
 
@@ -397,7 +397,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>kerry</strong>
-        <span>7月 15, 2017</span>
+        <span>11月 23, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -429,7 +429,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Java中的IO流总结（1）&url=https://yuansuixin.github.io/2017/07/15/java-io/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Rest-Framework源码解析和自定义组件----序列化&url=https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html&pic=https://yuansuixin.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -438,7 +438,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Java中的IO流总结（1）&url=https://yuansuixin.github.io/2017/07/15/java-io/index.html&via=kerry" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Rest-Framework源码解析和自定义组件----序列化&url=https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html&via=kerry" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -447,7 +447,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/07/15/java-io/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -456,7 +456,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/07/15/java-io/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://yuansuixin.github.io/2017/11/23/rest-serializer/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -481,128 +481,62 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>IO流这块知识点比较多而且琐碎，今天我就来总结一下IO流的知识点。</p>
-<h4 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h4><hr>
-<p>File类的直接父类是Object类。</p>
-<p>下面的<strong>构造方法</strong>可以用来生成File 对象：</p>
+        <h1 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h1><h3 id="序列化数据"><a href="#序列化数据" class="headerlink" title="序列化数据"></a>序列化数据</h3><blockquote>
+<p>部分总结</p>
+</blockquote>
 <ul>
-<li>File(String directoryPath) </li>
-<li>File(String directoryPath, String filename) </li>
-<li>File(File dirObj, String filename) </li>
+<li>写类</li>
 </ul>
-<p>这里，directoryPath是文件的路径名， filename 是文件名，dirObj 是一个指定目录的File 对象.</p>
-<p><strong>目录操作的主要方法</strong>为： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class UserInfoSerializer(serializers.ModelSerializer):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    ModelSerializer帮助我们找到数据库中对象的字段，并将其转换成对应的field对象，只是做的简单的转换</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">        class Meta:</span><br><span class="line">        model = models.UserInfo</span><br><span class="line">        # fields = &apos;__all__&apos;</span><br><span class="line">        fields = [&apos;id&apos;,&apos;username&apos;,&apos;password&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class RolesSerializer(serializers.Serializer):</span><br><span class="line">    # 字段必须和数据库中的字段一致</span><br><span class="line">    id = serializers.IntegerField()</span><br><span class="line">    title = serializers.CharField()</span><br></pre></td></tr></table></figure>
 <ul>
-<li>public boolean mkdir() 根据抽象路径名创建目录。 </li>
-<li>public String[] list() 返回抽象路径名表示路径中 的文件名和目录名。 </li>
-</ul>
-<p>File类是++不对称++的。说它不对 称，意思是虽然存在允许验证一个简单文 件对象属性的很多方法，但是没有相应的 方法来改变这些属性</p>
-<p> <strong>File类中的常用方法</strong> </p>
-<ul>
-<li>String getName() </li>
-<li>String getPath() </li>
-<li>String getAbsolutePath()</li>
-<li>String getParent()</li>
-<li>boolean renameTo( File newName)</li>
-<li>long length()</li>
-<li>boolean delete() </li>
-<li>boolean mkdir()</li>
-<li>String[] list()<ul>
-<li>boolean exists() </li>
-<li>boolean canWrite() </li>
-<li>boolean canRead()</li>
-<li>boolean isFile()<br>-boolean isDirectory()</li>
-<li>File[ ] listFiles()</li>
+<li>字段<ul>
+<li><code>title = serializers.CharField(source=&#39;xx.xx.xx.xx&#39;)</code></li>
+<li>自定义方法<code>title = serializers.SerializerMethodField()</code></li>
+<li>自定义类</li>
 </ul>
 </li>
 </ul>
-<p><strong>路径分隔符</strong></p>
-<p>Windows里面的\表示转义，在程序中需要使用双反斜杠\,或者是使用/，其他的系统都是使用的/。</p>
-<h4 id="流类"><a href="#流类" class="headerlink" title="流类"></a>流类</h4><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class UserInfoSerializer(serializers.ModelSerializer):</span><br><span class="line">    rls = serializers.SerializerMethodField()  # 自定义显示,将数据序列化</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        model = models.UserInfo</span><br><span class="line">        # fields = &apos;__all__&apos;</span><br><span class="line">        fields = [&apos;id&apos;,&apos;username&apos;,&apos;password&apos;,&apos;rls&apos;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def get_rls(self, row):</span><br><span class="line">        &apos;&apos;&apos;</span><br><span class="line">        函数名字必须是get开头，字段名称结尾</span><br><span class="line">        :param row: 当前行的对象</span><br><span class="line">        :return: 返回什么页面就会显示什么</span><br><span class="line">        &apos;&apos;&apos;</span><br><span class="line">        # 获取到所有的对象列表</span><br><span class="line">        role_obj_list = row.roles.all()</span><br><span class="line">        ret = []</span><br><span class="line">        for item in role_obj_list:</span><br><span class="line">            ret.append(&#123;&apos;id&apos;: item.id, &apos;title&apos;: item.title&#125;)</span><br><span class="line">        return ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 自定义类</span><br><span class="line">class MyField(serializers.CharField):</span><br><span class="line">    def to_representation(self, value):</span><br><span class="line">        # value是从数据库中取到的值</span><br><span class="line">        print(value)</span><br><span class="line">        # 返回什么，页面就会显示什么</span><br><span class="line">        return &apos;xxxx&apos;</span><br><span class="line"></span><br><span class="line"># 可以混合使用</span><br><span class="line">class UserInfoSerializer(serializers.ModelSerializer):</span><br><span class="line">    x1 = MyField(source=&apos;username&apos;)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>输入/输出时，数据在通信通道中流动。所谓“数 据流(stream)”指的是所有数据通信通道之中， 数据的起点和终点。信息的通道就是一个数据流。 只要是数据从一个地方“流”到另外一个地方， 这种数据流动的通道都可以称为数据流。 </li>
-<li>输入/输出是相对于程序来说的。程序在使用数据 时所扮演的角色有两个：一个是源，一个是目的。 若程序是数据流的源，即数据的提供者，这个数 据流对程序来说就是一个“输出数据流”(数据从 程序流出)。若程序是数据流的终点，这个数据流 对程序而言就是一个“输入数据流” ( 数据从程 序外流向程序)</li>
+<li>自动序列化连表操作</li>
 </ul>
-<p>Java 2 定义了两种类型的流：<br><strong>字节流和字符流</strong>。</p>
-<p><strong>字节流</strong>（byte stream）为处理字 节的输入和输出提供了方便的方法。例如 使用字节流读取或写入二进制数据。<strong>字符流</strong>（character stream）为字符的输入和 输出处理提供了方便。它们采用了统一的 编码标准，因而可以国际化。当然，在某 些场合，字符流比字节流更有效</p>
-<p>==在最底层，所有的输入/输出都 是字节形式的==。基于字符的流只为处理字符提供方便有效的方法.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class UserInfoSerializer(serializers.ModelSerializer):</span><br><span class="line">    class Meta:</span><br><span class="line">        model = models.UserInfo</span><br><span class="line">        # fields = &apos;__all__&apos;</span><br><span class="line">        # fields = [&apos;id&apos;,&apos;username&apos;,&apos;password&apos;,&apos;oooo&apos;,&apos;rls&apos;,&apos;group&apos;]</span><br><span class="line">        depth = 1 # 表示往里面拿几层数据，默认是0，建议0-3之间</span><br></pre></td></tr></table></figure>
 <ul>
-<li>字节流类（Byte Streams） 字节流类用于 向字节流读写8位二进制的字节。一般地， 字节流类主要用于读写诸如图象或声音等 的二进制数据。</li>
-<li>字符流类（Character Streams） 字符流 类用于向字符流读写16位二进制字符</li>
+<li>生成链接</li>
 </ul>
-<h6 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h6><ol>
-<li>两种基本的流是：输入流(Input Stream) 和输出流(Output Stream)。可从中读出 一系列字节的对象称为输入流。而能向其 中写入一系列字节的对象称为输出流。</li>
-</ol>
-<p>2.节点流：从特定的地方读写的流类，例如：磁盘或一块内存区域。 过滤流：使用节点流作为输入或输出。过滤流是使用一个已经存在的 输入流或输出流连接创建的。</p>
-<h5 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h5><p>字节流类以InputStream 和 OutputStream为顶层类,他们都是抽象类 (abstract)，抽象类InputStream 和 OutputStream定义了实现其 他流类的关键方法。最重要的两种方法是read()和write()，它们分别对数据的字节进行读写。两种 方法都在InputStream 和OutputStream中被定义为 抽象方法。它们被派生的流类重写。每个抽象类都有多个具体的子类，这些子类对不同的外设进行处理，例如磁盘文件，网络连接，甚至是内存缓冲区。 要使用流类，必须导入java.io包。</p>
-<p> 三个基本的读方法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class UserInfoSerializer(serializers.ModelSerializer):</span><br><span class="line">    # 反向生成url,lookup_url_kwarg指的是url中的那个参数的值</span><br><span class="line">    group = serializers.HyperlinkedIdentityField(view_name=&apos;gp&apos;,lookup_field=&apos;group_id&apos;,lookup_url_kwarg=&apos;pk&apos;)</span><br><span class="line">    class Meta:</span><br><span class="line">        model = models.UserInfo</span><br><span class="line">        # fields = &apos;__all__&apos;</span><br><span class="line">        fields = [&apos;id&apos;,&apos;username&apos;,&apos;password&apos;,&apos;oooo&apos;,&apos;rls&apos;,&apos;group&apos;]</span><br><span class="line">        # depth = 1 # 表示往里面拿几层数据，默认是0，建议0-3之间</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UserinfoView(APIView):</span><br><span class="line">    def get(self,request):</span><br><span class="line">        users = models.UserInfo.objects.all()</span><br><span class="line">        ser = UserInfoSerializer(instance=users,many=True,context=&#123;&apos;request&apos;:request&#125;)</span><br><span class="line">        print(ser.data)</span><br><span class="line">        ret = json.dumps(ser.data,ensure_ascii=False)</span><br><span class="line">        return HttpResponse(ret)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class GroupSerializer(serializers.ModelSerializer):</span><br><span class="line">    class Meta:</span><br><span class="line">        model = models.UserGroup</span><br><span class="line">        fields = &apos;__all__&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class GroupView(APIView):</span><br><span class="line">    def get(self,request,*args,**kwargs):</span><br><span class="line">        pk = kwargs.get(&apos;pk&apos;)</span><br><span class="line">        obj = models.UserGroup.objects.filter(pk=pk).first()</span><br><span class="line">        ser = GroupSerializer(instance=obj,many=False)</span><br><span class="line">        ret = json.dumps(ser.data,ensure_ascii=False)</span><br><span class="line">        return HttpResponse(ret)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line"> url(r&apos;^(?P&lt;version&gt;[v1|v2]+)/userinfo/$&apos;,views.UserinfoView.as_view(),name=&apos;userinfo&apos;),</span><br><span class="line"> url(r&apos;^(?P&lt;version&gt;[v1|v2]+)/group/(?P&lt;pk&gt;\d+)$&apos;,views.GroupView.as_view(),name=&apos;gp&apos;),</span><br><span class="line"></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>源码分析</p>
+</blockquote>
+<h6 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h6><ul>
+<li>对象，Serializer类处理</li>
+<li><p>QuerySet，是使用ListSerializer类处理</p>
+</li>
+<li><p>从类的实例化开始，先找到<strong>new</strong>(),在Serializer类的父类BaseSerializer类中我们可以看到这个方法，</p>
+</li>
+</ul>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018423201026.png" alt="Untitled-1-2018423201026"></p>
+<p><img src="http://p693ase25.bkt.clouddn.com/Untitled-1-2018423221514.png" alt="Untitled-1-2018423221514"></p>
+<h6 id="序列化-1"><a href="#序列化-1" class="headerlink" title="序列化"></a>序列化</h6><ul>
+<li>从ser.data开始，data（）因为使用了property装饰器，所以调用的时候不需要些括号，data（）里调用了父类Serializer的data（），返回一个有序字典</li>
+<li>在Serializer的data（）调用了to_representation()方法，在这个方法里，循环遍历了定义的一些字段，调用了字段的get_attribute()方法</li>
+<li>在fields类，将传入的source参数的内容，使用点进行分隔开，赋值给source_attrs列表，循环遍历这个列表，<code>instance = instance[attr]</code>,将instance变成了对象，然后再使用对象取值<code>instance = getattr(instance, attr)</code></li>
+<li>使用is_simple_callable（）方法判断类型，是不是可执行的函数，如果可执行，直接执行</li>
+</ul>
+<hr>
 <ul>
-<li>abstract int read() ：读取一个字节数据， 并返回读到的数据，如果返回-1，表示读到了输 入流的末尾。 </li>
-<li>int read(byte[] b) ：将数据读入一个字节 数组，同时返回实际读取的字节数。如果返回-1， 表示读到了输入流的末尾。</li>
-<li>int read(byte[] b, int off, int len) ：将数 据读入一个字节数组，同时返回实际读取的字节 数。如果返回-1，表示读到了输入流的末尾。off 指定在数组b中存放数据的起始偏移位置；len指 定读取的最大字节数。</li>
+<li>知识点补充：<ul>
+<li>类实例化的时候，先执行<strong>new</strong>(),才会执行<strong>init</strong>()方法</li>
+<li>callback（），isinstance（）</li>
 </ul>
-<p>为什么只有第一个read方法是抽象 的，而其余两个read方法都是具体的？</p>
-<ul>
-<li>因为第二个read方法依靠第三个read方法 来实现，而第三个read方法又依靠第一个 read方法来实现，所以说只有第一个read 方法是与具体的I/O设备相关的，它需要 InputStream的子类来实现</li>
+</li>
 </ul>
-<p>其它方法 </p>
-<ul>
-<li>long skip(long n) ：在输入流中跳过n个字节，并返 回实际跳过的字节数。 </li>
-<li>int available() ：返回在不发生阻塞的情况下，可读 取的字节数。</li>
-<li>void close() ：关闭输入流，释放和这个流相关的系 统资源。</li>
-<li>void mark(int readlimit) ：在输入流的当前位置放 置一个标记，如果读取的字节数多于readlimit设置的值， 则流忽略这个标记。 </li>
-<li>void reset() ：返回到上一个标记。 </li>
-<li>boolean markSupported() ：测试当前流是否支持 mark和reset方法。如果支持，返回true，否则返回 false。</li>
-</ul>
-<ul>
-<li>InputStream中包含一套字节输入流需要的方法， 可以完成最基本的从输入流读入数据的功能。当 Java程序需要外设的数据时，可根据数据的不同 形式，创建一个适当的InputStream子类类型的对 象来完成与该外设的连接，然后再调用执行这个 流类对象的特定输入方法来实现对相应外设的输 入操作。</li>
-<li>InputStream 类 子 类 对 象 自 然 也 继 承 了 InputStream类的方法。常用的方法有：读数据的 方法read() ， 获取输入流字节数的方法 available()，定位输入位置指针的方法skip()、 reset()、mark()等。</li>
-</ul>
-<p> 三个基本的写方法:</p>
-<ul>
-<li>abstract void write(int b) ：往输出 流中写入一个字节。 </li>
-<li>void write(byte[] b) ：往输出流中写 入数组b中的所有字节。</li>
-<li>void write(byte[] b, int off, int len) ：往输出流中写入数组b中从偏移 量off开始的len个字节的数据</li>
-</ul>
-<p>其它方法 </p>
-<ul>
-<li>void flush() ：刷新输出流，强制缓冲 区中的输出字节被写出。 </li>
-<li>void close() ：关闭输出流，释放和这 个流相关的系统资源。</li>
-</ul>
-<h5 id="过滤流"><a href="#过滤流" class="headerlink" title="过滤流"></a>过滤流</h5><p>在InputStream类和OutputStream类子类中， FilterInputStream 和 FilterOutputStream 过滤流抽象类又派生出DataInputStream和 DataOutputStream数据输入输出流类等子 类。</p>
-<p>过滤流的主要特点是在输入输出数据的同时能对所传输的 数据做指定类型或格式的转换，即可实现对二进制字节数 据的理解和编码转换。</p>
-<ul>
-<li>数据输入流DataInputStream中定义了多个针对不同类型 数 据 的 读 方 法 ， 如 readByte() 、 readBoolean() 、 readShort()、readChar()、readInt()、readLong()、 readFloat()、readDouble()、readLine()等。 </li>
-<li>数据输出流DataOutputStream中定义了多个针对不同类型 数 据 的 写 方 法 ， 如 writeByte() 、 writeBoolean() 、 writeShort()、writeChar()、writeInt()、writeLong()、 writeFloat()、writeDouble()、writeChars()等。</li>
-<li>过滤流在读/写数据的同时可以对数据进行 处理，它提供了同步机制，使得某一时刻 只有一个线程可以访问一个I/O流，以防止 多个线程同时对一个I/O流进行操作所带来 的意想不到的结果。 </li>
-<li>类FilterInputStream和 FilterOutputStream分别作为所有过滤输 入流和输出流的父类。</li>
-</ul>
-<h6 id="基本的流类"><a href="#基本的流类" class="headerlink" title="基本的流类"></a>基本的流类</h6><ul>
-<li>FileInputStream和FileOutputStream 节点流，用于从文件中读取或往文件中写入字节流。如果在构造 FileOutputStream时，文件已经存在，则覆盖这个文件。</li>
-<li>BufferedInputStream和 BufferedOutputStream 过滤流，需要使用已经存在的节点流来构造，提供带缓冲的读写，提高了读写的效率。</li>
-<li>DataInputStream和DataOutputStream 过滤流，需要使用已经存在的节点流来构造，提供了读写Java中的基本数 据类型的功能。 </li>
-<li>PipedInputStream和PipedOutputStream 管道流，用于线程间的通信。一个线程的PipedInputStream对象 从另一个线程的PipedOutputStream对象读取输入。要使管道流有 用，必须同时构造管道输入流和管道输出流。</li>
-</ul>
-<p>java的IO库的设计原则是利用的装饰设计模式，前面我介绍过了。</p>
-<p><a href="http://blog.csdn.net/prairie97/article/details/78599420" target="_blank" rel="noopener">装饰设计模式</a></p>
-<h5 id="预定义流"><a href="#预定义流" class="headerlink" title="预定义流"></a>预定义流</h5><p>所有的Java程序自动导入java.lang包。该包 定义了一个名为System的类，该类封装了运 行时环境的多方面信息。例如，使用它的 某些方法，你能获得当前时间和与系统有 关的不同属性。System 同时包含三个预定 义的流变量，in，out和err。这些成员在 System中是被定义成public 和static型的，这 意味着它们可以不引用特定的System对象而 被用于程序的其他部分。</p>
-<p>System.out是标准的输出流。默认情况下，它是一 个控制台。System.in是标准输入，默认情况下， 它指的是键盘。System.err指的是标准错误流，它 默认是控制台。然而，这些流可以重定向到任何 兼容的输入/输出设备 • System.in 是InputStream的对象；System.out和 System.err是PrintStream的对象。它们都是字节流， 尽管它们用来读写外设的字符。如果愿意，你可 以用基于字符的流来包装它们</p>
-<p>• System类的类变量in表示标准输入流，其 定义为：</p>
-<ul>
-<li>public static final InputStream in </li>
-<li>标准输入流已打开，作好提供输入数据的 准备。一般这个流对应键盘输入，可以使 用InputStream 类的read()和skip(long n)等方法来从输入流获得数据。read()从 输入流中读一个字节，skip(long n)在输 入流中跳过n个字节。</li>
-</ul>
-<p>System类的类变量out表示标准输出流，其定义 为：</p>
-<ul>
-<li>public static final PrintStream out</li>
-<li>标准输出流也已打开，作好接收数据的准备。一 般这个流对应显示器输出。可以使用PrintStream 类的print()和println() 等方法来输出数据，这两个方法支持Java的任意 基本类型作为参数。</li>
-</ul>
-<p>System类的类变量err表示标准错误输出 流，其定义为：</p>
-<ul>
-<li>public static final PrintStream err</li>
-<li>标准错误输出流已打开，作好接收数据的 准备。一般这个流也对应显示器输出，与 System.out一样，可以访问PrintStream 类的方法。</li>
-</ul>
-<p><a href="https://blog.csdn.net/prairie97" target="_blank" rel="noopener">csdn博客相关内容</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def func(arg):</span><br><span class="line"># 判断传入的参数是否是可执行的，也就是是不是函数类型</span><br><span class="line">    #if callbale(arg):</span><br><span class="line">	if isinstance(arg,types.FunctionType):</span><br><span class="line">	    print(arg())</span><br><span class="line">	else:</span><br><span class="line">	    print(arg)</span><br><span class="line"></span><br><span class="line">func(123)</span><br><span class="line">func(lambda:&apos;666&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="请求数据校验"><a href="#请求数据校验" class="headerlink" title="请求数据校验"></a>请求数据校验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 自定义验证规则</span><br><span class="line">class XValidator(object):</span><br><span class="line">    def __init__(self,base):</span><br><span class="line">        self.base = base</span><br><span class="line">    def __call__(self,value):</span><br><span class="line">        if not value.startswith(self.base):</span><br><span class="line">            message = &apos;标题必须以%s开头&apos;%self.base</span><br><span class="line">            raise serializers.ValidationError(message)</span><br><span class="line"></span><br><span class="line">    def set_context(self, serializer_field):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        This hook is called by the serializer instance,</span><br><span class="line">        prior to the validation call being made.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # 执行验证之前调用,serializer_fields是当前字段对象</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UserGroupSerializer(serializers.Serializer):</span><br><span class="line">    title = serializers.CharField(error_messages=&#123;&apos;required&apos;:&apos;标题不能为空&apos;&#125;,validators=[XValidator(&apos;老女人&apos;),])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UserGroupView(APIView):</span><br><span class="line">    def post(self,request,*args,**kwargs):</span><br><span class="line">        print(request.data)</span><br><span class="line">        ser = UserGroupSerializer(data=request.data)</span><br><span class="line">        # 数据校验，</span><br><span class="line">        if ser.is_valid():</span><br><span class="line">            print(ser.validated_data)</span><br><span class="line">        else:</span><br><span class="line">            print(ser.errors)</span><br><span class="line">        return HttpResponse(&apos;提交数据&apos;)</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/yuansuixin/Rest-Framework-Serializer" title="源代码下载" target="_blank" rel="noopener">源码下载</a></p>
 
         
     
@@ -623,7 +557,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/08/15/java-io2/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/12/15/annotation/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -637,7 +571,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2017/06/02/reflection2/" id="post_nav-older" class="next-content">
+        <a href="/2017/11/19/rest-frame-work/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
